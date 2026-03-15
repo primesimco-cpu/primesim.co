@@ -1,0 +1,4 @@
+*.zip
+*.md
+.env*
+node_modules
