@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PrimeSIM Mobile — app.primesimobile.com</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#0A2540;--p2:#1a3a5c;--p3:#0d3060;
+  --a:#00D4AA;--a2:#00b890;
+  --w:#FF6B35;--w2:#e55a2a;
+  --sky:#EBF5FF;--mint:#E6FBF6;
+  --bg:#F8FAFB;--card:#FFF;
+  --ink:#0A2540;--muted:#637083;
+  --border:rgba(10,37,64,.09);
+  --r:14px;--r2:20px;
+  --fh:'Outfit',sans-serif;
+  --fb:'Plus Jakarta Sans',sans-serif;
+}
+body{font-family:var(--fb);background:var(--bg);color:var(--ink);overflow-x:hidden}
+
+/* ── NAV ── */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:60px;background:rgba(248,250,251,.97);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:300;backdrop-filter:blur(16px)}
+.logo{display:flex;align-items:center;gap:9px;cursor:pointer;text-decoration:none}
+.logo-mark{width:34px;height:34px;background:var(--p);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-weight:900;font-size:13px;color:var(--a)}
+.logo-text{font-family:var(--fh);font-weight:800;font-size:17px;color:var(--ink)}
+.logo-text em{font-style:normal;color:var(--a)}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-link{font-size:12px;font-weight:600;padding:6px 12px;border-radius:8px;cursor:pointer;color:var(--muted);border:none;background:none;font-family:var(--fb);transition:all .15s;text-decoration:none;display:inline-flex;align-items:center;gap:4px}
+.nav-link:hover,.nav-link.on{color:var(--ink);background:var(--border)}
+.mode-tabs{display:flex;gap:2px;background:var(--border);border-radius:99px;padding:3px}
+.mode-tab{font-size:12px;font-weight:700;padding:5px 14px;border-radius:99px;cursor:pointer;color:var(--muted);border:none;background:none;font-family:var(--fb);transition:all .15s}
+.mode-tab.on{background:white;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.1)}
+.nav-r{display:flex;gap:8px;align-items:center}
+
+/* LANG SWITCHER */
+.lang-sel{background:var(--bg);border:1.5px solid var(--border);border-radius:8px;padding:5px 8px;font-size:11px;font-family:var(--fb);font-weight:700;color:var(--ink);cursor:pointer;outline:none}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-family:var(--fb);font-weight:700;font-size:13px;padding:9px 20px;border-radius:99px;border:none;cursor:pointer;transition:all .15s}
+.btn-p{background:var(--p);color:#fff}.btn-p:hover{background:var(--p2);transform:translateY(-1px)}
+.btn-a{background:var(--a);color:var(--p);font-weight:800}.btn-a:hover{background:var(--a2);transform:translateY(-1px)}
+.btn-w{background:var(--w);color:#fff}.btn-w:hover{background:var(--w2)}
+.btn-ghost{background:transparent;border:1.5px solid var(--border);color:var(--ink)}.btn-ghost:hover{border-color:var(--p)}
+.btn-outline-a{background:var(--mint);border:1.5px solid rgba(0,212,170,.4);color:var(--p)}.btn-outline-a:hover{background:var(--a);color:var(--p)}
+.btn-lg{font-size:15px;padding:13px 32px}
+.btn-sm{font-size:11px;padding:6px 14px}
+.btn-xs{font-size:10px;padding:4px 10px}
+
+/* SCREENS */
+.screen{display:none}
+.screen.on{display:block;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ═══ HERO ═══ */
+.hero{background:linear-gradient(135deg,var(--p) 0%,var(--p3) 55%,#0d4f7c 100%);color:white;padding:56px 28px 52px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-80px;width:360px;height:360px;border-radius:50%;background:rgba(0,212,170,.1)}
+.hero-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 400px;gap:52px;align-items:center}
+.hero-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(0,212,170,.15);border:1px solid rgba(0,212,170,.3);color:var(--a);font-size:11px;font-weight:800;padding:5px 13px;border-radius:99px;margin-bottom:22px;text-transform:uppercase;letter-spacing:.05em}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--a);animation:pa 2s infinite}
+@keyframes pa{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+.hero h1{font-family:var(--fh);font-size:50px;font-weight:900;line-height:1.04;letter-spacing:-2px;margin-bottom:18px}
+.hero h1 em{font-style:normal;color:var(--a)}
+.hero p{font-size:15px;opacity:.78;line-height:1.75;margin-bottom:30px;max-width:440px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:40px}
+.hero-stats{display:flex;gap:32px}
+.stat-n{font-family:var(--fh);font-size:28px;font-weight:900;color:var(--a)}
+.stat-l{font-size:11px;opacity:.55;margin-top:2px}
+
+/* SEARCH CARD */
+.s-card{background:white;border-radius:22px;padding:24px;box-shadow:0 12px 48px rgba(0,0,0,.18)}
+.s-card h3{font-family:var(--fh);font-size:18px;font-weight:800;color:var(--p);margin-bottom:16px}
+.s-inp{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:11px;padding:11px 15px;border:1.5px solid var(--border);margin-bottom:14px;transition:border-color .15s}
+.s-inp:focus-within{border-color:var(--a)}
+.s-inp input{background:none;border:none;outline:none;font-family:var(--fb);font-size:14px;width:100%;color:var(--ink)}
+.pop-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.c-pill{display:inline-flex;align-items:center;gap:5px;background:var(--bg);border-radius:99px;padding:5px 12px;font-size:12px;font-weight:600;margin:3px;cursor:pointer;border:1.5px solid var(--border);transition:all .15s}
+.c-pill:hover{border-color:var(--a);background:var(--mint)}
+
+/* TRUST BAR */
+.trust{background:var(--p);padding:12px 28px;display:flex;align-items:center;justify-content:center;gap:36px;flex-wrap:wrap}
+.trust-i{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:600;color:rgba(255,255,255,.7)}
+.tdot{width:4px;height:4px;border-radius:50%;background:var(--a)}
+
+/* SECTION */
+.sec{max-width:1080px;margin:0 auto;padding:40px 28px}
+.sec-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.sec-h h2{font-family:var(--fh);font-size:28px;font-weight:900;letter-spacing:-1px}
+
+/* PLAN CARDS */
+.p-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:16px}
+.p-card{background:var(--card);border-radius:var(--r);padding:20px;border:1.5px solid var(--border);cursor:pointer;transition:all .2s;position:relative}
+.p-card:hover{border-color:var(--a);transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,212,170,.12)}
+.p-card.feat{border-color:var(--a);background:linear-gradient(135deg,#f0fdf9,white)}
+.p-badge{position:absolute;top:-10px;left:15px;background:var(--a);color:var(--p);font-size:9px;font-weight:900;padding:3px 10px;border-radius:99px;text-transform:uppercase}
+.p-flag{font-size:32px;margin-bottom:10px}
+.p-cn{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--p);margin-bottom:3px}
+.p-pv{font-size:10px;color:var(--muted);margin-bottom:14px}
+.p-chips{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.chip{border-radius:7px;padding:5px 9px;font-size:11px;font-weight:700}
+.chip-d{background:#E8F8FF;color:#0077BB}
+.chip-t{background:#FFF3E8;color:var(--w)}
+.chip-s{background:var(--mint);color:#00715e}
+.p-bot{display:flex;align-items:center;justify-content:space-between}
+.p-price{font-family:var(--fh);font-size:23px;font-weight:900;color:var(--p)}
+.p-price span{font-size:12px;font-weight:400;color:var(--muted)}
+.buy-btn{background:var(--p);color:white;border:none;border-radius:99px;padding:8px 18px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;font-family:var(--fb)}
+.buy-btn:hover{background:var(--a);color:var(--p)}
+.f-row{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap;align-items:center}
+.f-btn{font-size:11px;font-weight:700;padding:6px 14px;border-radius:99px;border:1.5px solid var(--border);background:white;cursor:pointer;transition:all .15s;font-family:var(--fb);color:var(--muted)}
+.f-btn.on{background:var(--p);color:white;border-color:var(--p)}
+
+/* WHY PAGE */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:48px}
+.why-card{background:white;border-radius:var(--r2);padding:28px;border:1.5px solid var(--border);text-align:center;transition:all .2s}
+.why-card:hover{border-color:var(--a);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,212,170,.1)}
+.why-ico{width:56px;height:56px;border-radius:14px;background:var(--mint);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px}
+.why-t{font-family:var(--fh);font-size:18px;font-weight:800;margin-bottom:10px}
+.why-d{font-size:13px;color:var(--muted);line-height:1.7}
+.compare-tbl{background:white;border-radius:var(--r2);overflow:hidden;border:1.5px solid var(--border)}
+.compare-tbl table{width:100%;border-collapse:collapse}
+.compare-tbl th{background:var(--p);color:white;padding:14px 18px;font-size:12px;font-weight:800;text-align:left;font-family:var(--fh)}
+.compare-tbl td{padding:12px 18px;font-size:13px;border-bottom:1px solid var(--border)}
+.compare-tbl tr:last-child td{border:none}
+.compare-tbl tr:nth-child(even) td{background:var(--bg)}
+.check{color:#00a878;font-weight:900;font-size:16px}
+.cross{color:#e53535;font-weight:900;font-size:16px}
+
+/* BUSINESS PAGE */
+.biz-hero{background:linear-gradient(135deg,var(--p),var(--p3));color:white;padding:52px 28px;text-align:center;border-radius:0}
+.biz-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+.biz-card{background:rgba(255,255,255,.1);border-radius:var(--r2);padding:24px;border:1px solid rgba(255,255,255,.15);text-align:center}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+.price-card{background:white;border-radius:var(--r2);padding:28px;border:1.5px solid var(--border);text-align:center;transition:all .2s;position:relative}
+.price-card.pop{border-color:var(--a);box-shadow:0 8px 40px rgba(0,212,170,.15)}
+.price-card .pop-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--a);color:var(--p);font-size:10px;font-weight:900;padding:4px 14px;border-radius:99px;text-transform:uppercase}
+.price-n{font-family:var(--fh);font-size:18px;font-weight:800;margin-bottom:8px}
+.price-v{font-family:var(--fh);font-size:40px;font-weight:900;color:var(--p);margin-bottom:4px}
+.price-v span{font-size:16px;font-weight:400;color:var(--muted)}
+.price-feat{list-style:none;margin:20px 0;text-align:left}
+.price-feat li{font-size:13px;padding:7px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.price-feat li::before{content:'✓';color:var(--a);font-weight:900;font-size:14px}
+.price-feat li:last-child{border:none}
+
+/* BLOG PAGE */
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.blog-card{background:white;border-radius:var(--r);overflow:hidden;border:1.5px solid var(--border);transition:all .2s;cursor:pointer}
+.blog-card:hover{border-color:var(--a);transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.blog-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:48px}
+.blog-body{padding:18px}
+.blog-cat{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--a);margin-bottom:8px}
+.blog-t{font-family:var(--fh);font-size:16px;font-weight:800;margin-bottom:8px;line-height:1.3}
+.blog-d{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:12px}
+.blog-meta{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted)}
+
+/* CAMPAIGN PAGE */
+.camp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.camp-card{background:white;border-radius:var(--r);padding:20px;border:1.5px solid var(--border);position:relative;overflow:hidden}
+.camp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px}
+.camp-card.summer::before{background:linear-gradient(90deg,var(--w),#ffb347)}
+.camp-card.business::before{background:linear-gradient(90deg,var(--p),var(--a))}
+.camp-card.flash::before{background:linear-gradient(90deg,#e53535,var(--w))}
+.camp-end{position:absolute;top:12px;right:12px;background:var(--bg);border-radius:8px;padding:4px 8px;font-size:10px;font-weight:700;color:var(--muted)}
+.camp-title{font-family:var(--fh);font-size:18px;font-weight:800;margin-bottom:6px}
+.camp-desc{font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6}
+.coupon-box{background:var(--bg);border:2px dashed var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.coupon-code{font-family:monospace;font-size:16px;font-weight:900;color:var(--p);letter-spacing:2px}
+.discount-badge{background:var(--a);color:var(--p);font-size:18px;font-weight:900;padding:6px 14px;border-radius:99px;font-family:var(--fh)}
+.progress-wrap{margin-bottom:10px}
+.prog-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px}
+.prog-bar{height:6px;background:var(--border);border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;background:var(--a)}
+
+/* CHECKOUT */
+.co-wrap{max-width:880px;margin:0 auto;padding:32px 28px}
+.co-grid{display:grid;grid-template-columns:1fr 330px;gap:24px}
+.co-left{background:white;border-radius:var(--r2);padding:30px;border:1.5px solid var(--border)}
+.co-left h2{font-family:var(--fh);font-size:28px;font-weight:900;letter-spacing:-1px;margin-bottom:26px}
+.fs-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:11px;display:block}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ff{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.ff label{font-size:11px;font-weight:700;color:var(--muted)}
+.ff input,.ff select{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:11px 14px;font-family:var(--fb);font-size:14px;outline:none;transition:border-color .15s;color:var(--ink);width:100%}
+.ff input:focus,.ff select:focus{border-color:var(--a)}
+.pm-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.pm-btn{display:flex;align-items:center;gap:6px;padding:9px 15px;border:1.5px solid var(--border);border-radius:10px;background:white;cursor:pointer;font-size:12px;font-weight:700;transition:all .15s;font-family:var(--fb)}
+.pm-btn.on{border-color:var(--a);background:var(--mint);color:var(--p)}
+.pm-btn:hover{border-color:var(--a)}
+.card-viz{background:linear-gradient(135deg,var(--p),#1a5080);color:white;border-radius:14px;padding:20px;margin-bottom:16px}
+.cn-inp{background:none;border:none;outline:none;font-family:'Courier New',monospace;font-size:18px;letter-spacing:4px;color:white;width:100%;margin:12px 0 8px}
+.cn-inp::placeholder{opacity:.35}
+.card-row{display:flex;justify-content:space-between}
+.card-tiny{background:none;border:none;outline:none;font-size:12px;color:rgba(255,255,255,.7);width:80px;font-family:var(--fb)}
+.o-sum{background:white;border-radius:var(--r2);padding:22px;border:1.5px solid var(--border);position:sticky;top:72px}
+.o-sum h4{font-family:var(--fh);font-size:16px;font-weight:800;margin-bottom:16px}
+.o-item{display:flex;justify-content:space-between;font-size:12px;padding:8px 0;border-bottom:1px solid var(--border);color:var(--muted)}
+.o-item:last-of-type{border:none}
+.o-total{display:flex;justify-content:space-between;font-family:var(--fh);font-size:18px;font-weight:900;padding-top:14px;border-top:2px solid var(--p);margin-top:8px}
+.o-si{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);margin-top:7px}
+.o-si::before{content:'✓';color:var(--a);font-weight:900}
+
+/* SUCCESS */
+.suc-wrap{max-width:540px;margin:56px auto;padding:0 28px;text-align:center}
+.suc-ico{width:72px;height:72px;background:var(--a);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 22px;animation:popIn .4s cubic-bezier(.175,.885,.32,1.275)}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.qr-card{background:white;border-radius:var(--r2);padding:28px;border:1.5px solid var(--border);margin:22px 0}
+.qr-img{width:168px;height:168px;margin:0 auto 16px;background:var(--bg);border-radius:12px;display:flex;align-items:center;justify-content:center;border:2px dashed var(--border)}
+.lpa-code{font-family:monospace;font-size:9px;color:var(--muted);word-break:break-all;background:var(--bg);padding:8px 12px;border-radius:8px}
+
+/* MY ESIMS */
+.me-wrap{max-width:1080px;margin:0 auto;padding:32px 28px}
+.esim-card{background:white;border-radius:var(--r);padding:20px 24px;border:1.5px solid var(--border);margin-bottom:12px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;transition:border-color .15s}
+.esim-card:hover{border-color:rgba(0,212,170,.3)}
+.e-flag{font-size:36px}
+.e-name{font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:3px}
+.e-iccid{font-family:monospace;font-size:10px;color:var(--muted)}
+.e-prog{height:5px;background:var(--border);border-radius:99px;margin:10px 0 7px;overflow:hidden}
+.e-fill{height:100%;border-radius:99px;transition:width .6s}
+.e-meta{display:flex;gap:16px}
+.e-mi{font-size:10px;color:var(--muted)}
+.e-mi strong{display:block;font-size:12px;color:var(--ink);font-weight:700}
+.st-pill{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:800}
+.st-a{background:var(--mint);color:#007a5e}
+.st-l{background:#FFF3E8;color:var(--w)}
+.st-e{background:var(--bg);color:var(--muted)}
+.e-acts{display:flex;flex-direction:column;gap:6px}
+
+/* WALLET */
+.wl-wrap{max-width:880px;margin:0 auto;padding:32px 28px}
+.w-card{background:linear-gradient(135deg,var(--p),var(--p3));color:white;border-radius:22px;padding:28px 32px;margin-bottom:24px;position:relative;overflow:hidden}
+.w-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(0,212,170,.15)}
+.w-lbl{font-size:11px;opacity:.6;margin-bottom:7px;position:relative;font-weight:600}
+.w-bal{font-family:var(--fh);font-size:48px;font-weight:900;position:relative}
+.w-sub{font-size:12px;opacity:.55;margin-top:4px;position:relative}
+.w-acts{display:flex;gap:10px;margin-top:22px;position:relative;flex-wrap:wrap}
+.tx-list{background:white;border-radius:var(--r);border:1.5px solid var(--border);overflow:hidden}
+.tx-item{display:flex;align-items:center;gap:13px;padding:13px 18px;border-bottom:1px solid var(--border)}
+.tx-item:last-child{border:none}
+.tx-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.tx-ico.buy{background:var(--sky)}.tx-ico.top{background:var(--mint)}
+.tx-info{flex:1}
+.tx-name{font-size:13px;font-weight:700}
+.tx-date{font-size:10px;color:var(--muted);margin-top:1px}
+.tx-amt{font-family:var(--fh);font-weight:800;font-size:13px}
+.tx-neg{color:#e53535}.tx-pos{color:#00a878}
+
+/* HOW */
+.how{background:var(--p);padding:52px 28px}
+.how-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.how-step{text-align:center;color:white}
+.how-ico{width:52px;height:52px;background:rgba(0,212,170,.18);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin:0 auto 14px}
+.how-t{font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:7px}
+.how-d{font-size:12px;opacity:.6;line-height:1.65}
+
+/* AI CHATBOT */
+.chat-bubble{position:fixed;bottom:80px;right:20px;width:52px;height:52px;background:var(--a);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(0,212,170,.4);z-index:400;font-size:22px;transition:all .2s;border:none}
+.chat-bubble:hover{transform:scale(1.1)}
+.chat-window{position:fixed;bottom:150px;right:20px;width:340px;background:white;border-radius:18px;box-shadow:0 16px 60px rgba(0,0,0,.2);z-index:400;display:none;flex-direction:column;height:460px}
+.chat-window.open{display:flex}
+.chat-header{background:var(--p);color:white;padding:14px 18px;border-radius:18px 18px 0 0;display:flex;align-items:center;justify-content:space-between}
+.chat-title{font-family:var(--fh);font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px}
+.chat-online{width:8px;height:8px;border-radius:50%;background:var(--a)}
+.chat-close{background:rgba(255,255,255,.2);border:none;color:white;border-radius:99px;padding:4px 10px;cursor:pointer;font-size:12px;font-family:var(--fb)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.chat-msg{max-width:80%;padding:10px 13px;border-radius:12px;font-size:12px;line-height:1.6}
+.chat-msg.bot{background:var(--bg);color:var(--ink);align-self:flex-start;border-radius:4px 12px 12px 12px}
+.chat-msg.user{background:var(--p);color:white;align-self:flex-end;border-radius:12px 4px 12px 12px}
+.chat-input-row{padding:12px;border-top:1px solid var(--border);display:flex;gap:8px}
+.chat-input{flex:1;background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:9px 13px;font-size:12px;font-family:var(--fb);outline:none;color:var(--ink)}
+.chat-input:focus{border-color:var(--a)}
+.chat-send{background:var(--a);color:var(--p);border:none;border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:700;font-size:12px;font-family:var(--fb)}
+.chat-suggestions{padding:0 16px 10px;display:flex;flex-wrap:wrap;gap:6px}
+.chat-sug{background:var(--mint);border:1px solid rgba(0,212,170,.3);color:var(--p);border-radius:99px;padding:4px 10px;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--fb)}
+
+/* BOT NAV */
+.bot-nav{display:flex;justify-content:space-around;background:white;border-top:1px solid var(--border);padding:9px 0 5px;position:sticky;bottom:0;z-index:200}
+.bn{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:700;color:var(--muted);cursor:pointer;padding:4px 14px;border-radius:10px;border:none;background:none;font-family:var(--fb);transition:all .15s}
+.bn.on{color:var(--a)}
+.bn-ico{font-size:20px}
+
+/* ═══════════════════════════════
+   ADMIN PANEL
+═══════════════════════════════ */
+.admin-wrap{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 60px)}
+.sidebar{background:var(--p);padding:14px 10px;position:sticky;top:60px;height:calc(100vh - 60px);overflow-y:auto}
+.sb-sec{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.28);padding:14px 10px 6px}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:9px;cursor:pointer;font-size:12px;font-weight:600;color:rgba(255,255,255,.6);transition:all .15s;margin-bottom:2px;border:none;background:none;width:100%;text-align:left;font-family:var(--fb)}
+.sb-item:hover{background:rgba(255,255,255,.08);color:white}
+.sb-item.on{background:rgba(0,212,170,.15);color:var(--a)}
+.sb-ico{font-size:15px;width:18px;text-align:center}
+.sb-badge{margin-left:auto;background:var(--w);color:white;font-size:9px;font-weight:900;padding:2px 7px;border-radius:99px}
+.sb-badge.green{background:var(--a);color:var(--p)}
+.admin-main{padding:24px 26px;background:var(--bg);overflow-y:auto;max-height:calc(100vh - 60px)}
+.a-screen{display:none}
+.a-screen.on{display:block;animation:fadeIn .2s ease}
+.a-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.a-title{font-family:var(--fh);font-size:22px;font-weight:900;letter-spacing:-.5px}
+.a-sub{font-size:12px;color:var(--muted);margin-top:3px}
+
+/* METRICS */
+.mtr{display:grid;gap:13px;margin-bottom:22px}
+.mtr-4{grid-template-columns:repeat(4,1fr)}
+.mtr-3{grid-template-columns:repeat(3,1fr)}
+.mtr-2{grid-template-columns:repeat(2,1fr)}
+.metric{background:white;border-radius:var(--r);padding:18px;border:1.5px solid var(--border)}
+.m-lbl{font-size:11px;color:var(--muted);margin-bottom:7px;font-weight:600}
+.m-val{font-family:var(--fh);font-size:26px;font-weight:900;color:var(--p)}
+.m-tr{font-size:11px;margin-top:5px;font-weight:600}
+.up{color:#00a878}.dn{color:#e53535}.neutral{color:var(--muted)}
+
+/* CHARTS */
+.ch-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
+.ch-card{background:white;border-radius:var(--r);padding:20px;border:1.5px solid var(--border)}
+.ch-card h4{font-family:var(--fh);font-size:14px;font-weight:800;margin-bottom:16px}
+.bars{height:80px;display:flex;align-items:flex-end;gap:4px}
+.bar{border-radius:4px 4px 0 0;flex:1;cursor:pointer;transition:opacity .2s;min-width:8px}
+.bar:hover{opacity:.8}
+.bar-a{background:var(--a);opacity:.75}
+.bar-p{background:var(--p);opacity:.7}
+.bar-w{background:var(--w);opacity:.75}
+.bar-g{background:#00a878;opacity:.75}
+.ch-lbls{display:flex;gap:4px;margin-top:5px}
+.ch-lbl{flex:1;font-size:9px;color:var(--muted);text-align:center;min-width:8px}
+.donut-wrap{display:flex;align-items:center;gap:18px}
+.donut{width:82px;height:82px;border-radius:50%;flex-shrink:0;position:relative}
+.donut::after{content:'';position:absolute;inset:16px;background:white;border-radius:50%}
+.dl-item{display:flex;align-items:center;gap:7px;font-size:11px;margin-bottom:7px}
+.dl-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* DATA TABLE */
+.data-tbl{background:white;border-radius:var(--r);border:1.5px solid var(--border);overflow:hidden;margin-bottom:16px}
+.tbl-hdr{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--border)}
+.tbl-hdr h3{font-family:var(--fh);font-size:15px;font-weight:800}
+.tbl-acts{display:flex;gap:8px}
+table{width:100%;border-collapse:collapse}
+th{background:var(--bg);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:10px 15px;text-align:left;border-bottom:1px solid var(--border)}
+td{padding:11px 15px;font-size:12px;border-bottom:1px solid var(--border);color:var(--ink)}
+tr:last-child td{border:none}
+tr:hover td{background:rgba(0,212,170,.025)}
+.td-b{font-weight:700}
+.tag{display:inline-flex;align-items:center;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:800}
+.tag-g{background:var(--mint);color:#007a5e}
+.tag-o{background:#FFF3E8;color:var(--w)}
+.tag-b{background:var(--sky);color:#0052cc}
+.tag-r{background:#FEE2E2;color:#c53030}
+.tag-p{background:#F3E8FF;color:#7c3aed}
+
+/* NOTIFICATIONS */
+.notif{background:white;border-left:3px solid var(--a);border-radius:0 var(--r) var(--r) 0;padding:11px 15px;margin-bottom:9px;font-size:12px;display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-left-width:3px}
+.notif.warn{border-left-color:var(--w)}
+.notif.info{border-left-color:#0055cc}
+.notif.err{border-left-color:#e53535}
+.notif-ico{font-size:15px;flex-shrink:0;margin-top:1px}
+.notif-t{font-weight:700;margin-bottom:2px}
+.notif-d{font-size:10px;color:var(--muted)}
+
+/* PROVIDER CARDS */
+.pv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pv-card{background:white;border-radius:var(--r);padding:20px;border:1.5px solid var(--border)}
+.pv-hdr{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.pv-ico{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.pv-name{font-family:var(--fh);font-size:14px;font-weight:800}
+.pv-st{font-size:10px;font-weight:700;color:#00a878;display:flex;align-items:center;gap:4px}
+.pv-st::before{content:'';width:6px;height:6px;border-radius:50%;background:#00a878;display:inline-block}
+.mini-mtr{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.mini-m{background:var(--bg);border-radius:9px;padding:10px 12px}
+.mini-m .lbl{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;margin-bottom:3px}
+.mini-m .val{font-family:var(--fh);font-size:16px;font-weight:800}
+
+/* FORM CARD */
+.form-card{background:white;border-radius:var(--r);padding:22px;border:1.5px solid var(--border);margin-bottom:16px}
+.form-card h4{font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:16px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.form-field{display:flex;flex-direction:column;gap:5px}
+.form-field label{font-size:11px;font-weight:700;color:var(--muted)}
+.form-field input,.form-field select,.form-field textarea{background:var(--bg);border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-family:var(--fb);font-size:13px;outline:none;transition:border-color .15s;color:var(--ink);width:100%}
+.form-field input:focus,.form-field select:focus{border-color:var(--a)}
+.form-field textarea{resize:vertical;min-height:80px}
+
+/* SETTINGS */
+.set-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.set-card{background:white;border-radius:var(--r);padding:20px;border:1.5px solid var(--border)}
+.set-card h4{font-family:var(--fh);font-size:14px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.connected{display:flex;align-items:center;gap:6px;font-size:11px;color:#00a878;font-weight:700}
+.connected::before{content:'';width:7px;height:7px;border-radius:50%;background:#00a878;display:inline-block}
+.toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+.toggle:last-child{border:none}
+.toggle-sw{width:38px;height:22px;background:var(--border);border-radius:99px;position:relative;cursor:pointer;transition:background .2s}
+.toggle-sw.on{background:var(--a)}
+.toggle-sw::after{content:'';position:absolute;width:16px;height:16px;background:white;border-radius:50%;top:3px;left:3px;transition:transform .2s}
+.toggle-sw.on::after{transform:translateX(16px)}
+
+/* REPORT BUTTONS */
+.report-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+
+/* COUPON */
+.coupon-admin-card{background:white;border-radius:var(--r);padding:18px;border:1.5px solid var(--border)}
+.coupon-code-display{font-family:monospace;font-size:18px;font-weight:900;color:var(--p);letter-spacing:3px;background:var(--bg);padding:8px 16px;border-radius:8px;display:inline-block;border:2px dashed var(--border)}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--p);color:white;padding:12px 22px;border-radius:12px;font-size:12px;font-weight:700;z-index:9999;pointer-events:none;max-width:340px;text-align:center;animation:toastIn .3s ease;font-family:var(--fb);border-left:3px solid var(--a)}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(14px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+@media(max-width:768px){
+  .hero-inner,.co-grid,.mtr-4,.mtr-3,.ch-grid,.why-grid,.blog-grid,.pricing-grid,.pv-grid,.set-grid,.biz-grid{grid-template-columns:1fr}
+  .hero h1{font-size:36px}
+  .admin-wrap{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="logo" onclick="goTo('home')">
+    <div class="logo-mark">PS</div>
+    <div class="logo-text">Prime<em>SIM</em> Mobile</div>
+  </a>
+  <div class="nav-links" id="nav-links">
+    <a class="nav-link on" onclick="goTo('home')" data-page="home">Keşfet</a>
+    <a class="nav-link" onclick="goTo('why')" data-page="why">Neden PrimeSIM?</a>
+    <a class="nav-link" onclick="goTo('business')" data-page="business">Kurumsal</a>
+    <a class="nav-link" onclick="goTo('campaigns')" data-page="campaigns">Kampanyalar</a>
+    <a class="nav-link" onclick="goTo('blog')" data-page="blog">Blog</a>
+    <a class="nav-link" onclick="goTo('plans')" data-page="plans">Planlar</a>
+    <a class="nav-link" onclick="goTo('myesims')" data-page="myesims">eSIM'lerim</a>
+  </div>
+  <div class="mode-tabs">
+    <button class="mode-tab on" id="tab-c" onclick="switchMode('c')">📱 SuperApp</button>
+    <button class="mode-tab" id="tab-a" onclick="switchMode('a')">⚙️ Admin</button>
+  </div>
+  <div class="nav-r">
+    <select class="lang-sel" id="lang-sel" onchange="changeLang(this.value)">
+      <option value="tr">🇹🇷 TR</option>
+      <option value="en">🇺🇸 EN</option>
+      <option value="de">🇩🇪 DE</option>
+      <option value="fr">🇫🇷 FR</option>
+      <option value="es">🇪🇸 ES</option>
+      <option value="it">🇮🇹 IT</option>
+      <option value="pt">🇧🇷 PT</option>
+      <option value="ru">🇷🇺 RU</option>
+      <option value="ar">🇸🇦 AR</option>
+      <option value="zh">🇨🇳 ZH</option>
+      <option value="ja">🇯🇵 JA</option>
+      <option value="ko">🇰🇷 KO</option>
+      <option value="nl">🇳🇱 NL</option>
+      <option value="pl">🇵🇱 PL</option>
+      <option value="sv">🇸🇪 SV</option>
+      <option value="da">🇩🇰 DA</option>
+      <option value="fi">🇫🇮 FI</option>
+      <option value="no">🇳🇴 NO</option>
+      <option value="th">🇹🇭 TH</option>
+      <option value="id">🇮🇩 ID</option>
+    </select>
+    <button class="btn btn-ghost btn-sm" onclick="goTo('myesims')">Hesabım</button>
+    <button class="btn btn-a btn-sm" onclick="goTo('plans')">eSIM Al</button>
+  </div>
+</nav>
+
+<!-- ═══ CUSTOMER MODE ═══ -->
+<div id="mode-c">
+
+<!-- HOME -->
+<div id="sc-home" class="screen on">
+  <div class="hero">
+    <div class="hero-inner">
+      <div>
+        <div class="hero-pill"><span class="pulse"></span><span data-i18n="heroTag">130+ ülke · Anında aktivasyon</span></div>
+        <h1 data-i18n="heroTitle">Seyahat et,<br>bağlı kal.<br><em>Her yerde.</em></h1>
+        <p data-i18n="heroDesc">PrimeSIM Mobile ile fiziksel SIM kart olmadan 130+ ülkede anında veri. Uçuştan önce al, iner inmez bağlan.</p>
+        <div class="hero-btns">
+          <button class="btn btn-a btn-lg" onclick="goTo('plans')" data-i18n="explorePlans">Planları Keşfet</button>
+          <button class="btn btn-lg" style="background:rgba(255,255,255,.12);color:white;border:1.5px solid rgba(255,255,255,.25)" onclick="goTo('myesims')" data-i18n="myEsims">eSIM'lerimi Gör</button>
+        </div>
+        <div class="hero-stats">
+          <div><div class="stat-n">130+</div><div class="stat-l" data-i18n="countries">Ülke</div></div>
+          <div><div class="stat-n">2M+</div><div class="stat-l" data-i18n="users">Kullanıcı</div></div>
+          <div><div class="stat-n">4.9★</div><div class="stat-l" data-i18n="rating">Puan</div></div>
+          <div><div class="stat-n">%99.9</div><div class="stat-l">Uptime</div></div>
+        </div>
+      </div>
+      <div class="s-card">
+        <h3 data-i18n="whereGoing">Nereye gidiyorsunuz?</h3>
+        <div class="s-inp">
+          <span>🔍</span>
+          <input id="csearch" data-i18n-ph="searchPh" placeholder="Ülke veya bölge ara..." oninput="filterC(this.value)">
+        </div>
+        <div class="pop-lbl" data-i18n="popular">Popüler destinasyonlar</div>
+        <div id="clist"></div>
+      </div>
+    </div>
+  </div>
+  <div class="trust">
+    <div class="trust-i"><span class="tdot"></span><span data-i18n="t1">Stripe ile Güvenli Ödeme</span></div>
+    <div class="trust-i"><span class="tdot"></span><span data-i18n="t2">Anında QR Teslimat</span></div>
+    <div class="trust-i"><span class="tdot"></span><span data-i18n="t3">iOS 17.4+ Tek Dokunuş</span></div>
+    <div class="trust-i"><span class="tdot"></span><span data-i18n="t4">7/24 Türkçe Destek</span></div>
+    <div class="trust-i"><span class="tdot"></span><span data-i18n="t5">30 Gün İade</span></div>
+  </div>
+  <div class="sec">
+    <div class="sec-h">
+      <h2 data-i18n="featuredPlans">Öne Çıkan Planlar</h2>
+      <button class="btn btn-ghost btn-sm" onclick="goTo('plans')" data-i18n="viewAll">Tümünü Gör →</button>
+    </div>
+    <div class="p-grid" id="feat-grid"></div>
+  </div>
+  <div class="how">
+    <h2 style="font-family:var(--fh);font-size:28px;font-weight:900;color:white;text-align:center;letter-spacing:-1px;margin-bottom:32px" data-i18n="howWorks">Nasıl Çalışır?</h2>
+    <div class="how-grid">
+      <div class="how-step"><div class="how-ico">🌍</div><div class="how-t" data-i18n="step1t">1. Ülke Seç</div><div class="how-d" data-i18n="step1d">130+ ülke arasından hedefini bul</div></div>
+      <div class="how-step"><div class="how-ico">💳</div><div class="how-t" data-i18n="step2t">2. Güvenle Öde</div><div class="how-d" data-i18n="step2d">Stripe, Apple Pay, Google Pay</div></div>
+      <div class="how-step"><div class="how-ico">📲</div><div class="how-t" data-i18n="step3t">3. QR ile Kur</div><div class="how-d" data-i18n="step3d">QR veya push kurulum — saniyeler içinde</div></div>
+      <div class="how-step"><div class="how-ico">✈️</div><div class="how-t" data-i18n="step4t">4. Bağlan!</div><div class="how-d" data-i18n="step4d">Varır varmaz otomatik aktive</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY PRIMESIM -->
+<div id="sc-why" class="screen">
+  <div class="sec">
+    <div style="text-align:center;margin-bottom:40px">
+      <h2 style="font-family:var(--fh);font-size:36px;font-weight:900;letter-spacing:-1.5px;margin-bottom:12px">Neden PrimeSIM Mobile?</h2>
+      <p style="color:var(--muted);font-size:15px;max-width:560px;margin:0 auto;line-height:1.7">Dünya genelinde milyonlarca gezgin, dijital göçebe ve iş insanı için tasarlanmış en akıllı eSIM çözümü.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-ico">⚡</div><div class="why-t">Anında Aktivasyon</div><div class="why-d">QR kod veya iOS 17.4+ push kurulum ile dakikalar içinde bağlanın. Havalimanında SIM kart aramanın zamanı bitti.</div></div>
+      <div class="why-card"><div class="why-ico">💰</div><div class="why-t">%60'a Kadar Tasarruf</div><div class="why-d">Operatör roaming ücretlerine kıyasla %60'a kadar daha uygun fiyatlar. Sürpriz fatura yok.</div></div>
+      <div class="why-card"><div class="why-ico">🌍</div><div class="why-t">130+ Ülke</div><div class="why-d">eSIM Access, Telnyx ve Zendit altyapısıyla dünya genelinde kesintisiz kapsama.</div></div>
+      <div class="why-card"><div class="why-ico">🔒</div><div class="why-t">Güvenli & Güvenilir</div><div class="why-d">Stripe PCI-DSS Level 1 ödeme güvenliği. GSMA sertifikalı SM-DP+ altyapısı.</div></div>
+      <div class="why-card"><div class="why-ico">💬</div><div class="why-t">7/24 AI Destek</div><div class="why-d">Claude AI destekli chatbot ile 20 dilde anlık destek. İnsan temsilciye otomatik yönlendirme.</div></div>
+      <div class="why-card"><div class="why-ico">📱</div><div class="why-t">Tek Uygulamada Her Şey</div><div class="why-d">Satın alma, kurulum, kullanım takibi, cüzdan ve destek — hepsi PrimeSIM Mobile'da.</div></div>
+    </div>
+    <div class="compare-tbl">
+      <table>
+        <thead><tr><th>Özellik</th><th>PrimeSIM Mobile</th><th>Airalo</th><th>Holafly</th><th>Roaming</th></tr></thead>
+        <tbody>
+          <tr><td>Ülke Sayısı</td><td class="td-b" style="color:#00a878">130+</td><td>200+</td><td>170+</td><td>Sınırlı</td></tr>
+          <tr><td>Anında Aktivasyon</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>AI Chatbot Desteği</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>B2B Kurumsal Portal</td><td><span class="check">✓</span></td><td>Sınırlı</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>Kampanya & Kupon</td><td><span class="check">✓</span></td><td>Sınırlı</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>White-Label SaaS</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>Dijital Cüzdan</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>30 Gün İade</td><td><span class="check">✓</span></td><td>Sınırlı</td><td><span class="check">✓</span></td><td><span class="cross">✗</span></td></tr>
+          <tr><td>Fiyat Avantajı</td><td><span class="check">✓ En iyi</span></td><td>Orta</td><td>Yüksek</td><td>Çok Yüksek</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- BUSINESS -->
+<div id="sc-business" class="screen">
+  <div class="biz-hero">
+    <h1 style="font-family:var(--fh);font-size:44px;font-weight:900;letter-spacing:-2px;margin-bottom:14px">Kurumsal eSIM Çözümleri</h1>
+    <p style="opacity:.8;font-size:16px;max-width:560px;margin:0 auto 28px;line-height:1.7">Çalışanlarınız için dünya genelinde kesintisiz bağlantı. API entegrasyonu, filo yönetimi ve özel fiyatlandırma.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-a btn-lg">Demo İste</button>
+      <button class="btn btn-lg" style="background:rgba(255,255,255,.15);color:white;border:1.5px solid rgba(255,255,255,.3)">API Dokümantasyonu</button>
+    </div>
+    <div class="biz-grid" style="max-width:1080px;margin:32px auto 0">
+      <div class="biz-card"><div style="font-size:28px;margin-bottom:10px">🏢</div><div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Kurumsal Portal</div><div style="font-size:12px;opacity:.7;line-height:1.6">Çalışan bazlı SIM yönetimi, toplu satın alma, fatura otomasyonu</div></div>
+      <div class="biz-card"><div style="font-size:28px;margin-bottom:10px">🔌</div><div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">REST API</div><div style="font-size:12px;opacity:.7;line-height:1.6">Kendi uygulamanıza eSIM entegrasyonu. Sandbox + Production ortamı</div></div>
+      <div class="biz-card"><div style="font-size:28px;margin-bottom:10px">📊</div><div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Analitik Dashboard</div><div style="font-size:12px;opacity:.7;line-height:1.6">Veri kullanımı, maliyet raporları, departman bazlı takip</div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div style="text-align:center;margin-bottom:32px">
+      <h2 style="font-family:var(--fh);font-size:30px;font-weight:900;letter-spacing:-1px">Fiyatlandırma Planları</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-n">Starter</div>
+        <div class="price-v">$99<span>/ay</span></div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:16px">1-10 çalışan için ideal</p>
+        <ul class="price-feat">
+          <li>10 eSIM profili/ay</li>
+          <li>Temel dashboard</li>
+          <li>E-posta desteği</li>
+          <li>API erişimi</li>
+          <li>7/24 AI chatbot</li>
+        </ul>
+        <button class="btn btn-ghost" style="width:100%">Başla</button>
+      </div>
+      <div class="price-card pop">
+        <div class="pop-badge">En Popüler</div>
+        <div class="price-n">Business</div>
+        <div class="price-v">$299<span>/ay</span></div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:16px">10-100 çalışan için ideal</p>
+        <ul class="price-feat">
+          <li>Sınırsız eSIM profili</li>
+          <li>Gelişmiş analitik</li>
+          <li>Öncelikli destek</li>
+          <li>Tam API erişimi</li>
+          <li>White-label seçeneği</li>
+          <li>Custom fiyatlandırma</li>
+        </ul>
+        <button class="btn btn-a" style="width:100%">Başla</button>
+      </div>
+      <div class="price-card">
+        <div class="price-n">Enterprise</div>
+        <div class="price-v" style="font-size:28px">Özel</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:16px">100+ çalışan / Telco</p>
+        <ul class="price-feat">
+          <li>White-label SaaS lisansı</li>
+          <li>Dedicated hesap yöneticisi</li>
+          <li>SLA garantisi %99.9</li>
+          <li>Özel operatör anlaşması</li>
+          <li>On-premise seçeneği</li>
+          <li>Custom entegrasyon</li>
+        </ul>
+        <button class="btn btn-p" style="width:100%">İletişime Geç</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CAMPAIGNS -->
+<div id="sc-campaigns" class="screen">
+  <div class="sec">
+    <div class="sec-h">
+      <div><h2>Kampanya & Fırsatlar</h2><p style="color:var(--muted);font-size:13px;margin-top:5px">Sınırlı süreli teklifler · Kupon kodları · Özel fırsatlar</p></div>
+    </div>
+    <div class="camp-grid" id="camp-grid"></div>
+  </div>
+</div>
+
+<!-- BLOG -->
+<div id="sc-blog" class="screen">
+  <div class="sec">
+    <div class="sec-h">
+      <div><h2>Blog & Rehberler</h2><p style="color:var(--muted);font-size:13px;margin-top:5px">Seyahat rehberleri, eSIM ipuçları ve haberler</p></div>
+    </div>
+    <div class="blog-grid" id="blog-grid"></div>
+  </div>
+</div>
+
+<!-- PLANS -->
+<div id="sc-plans" class="screen">
+  <div class="sec">
+    <div class="sec-h">
+      <div><h2>Tüm eSIM Planları</h2><p style="color:var(--muted);font-size:13px;margin-top:5px">130+ ülke · eSIM Access · Telnyx · Zendit</p></div>
+    </div>
+    <div class="f-row">
+      <button class="f-btn on" onclick="fp('all',this)">🌐 Tümü</button>
+      <button class="f-btn" onclick="fp('europe',this)">🇪🇺 Avrupa</button>
+      <button class="f-btn" onclick="fp('asia',this)">🌏 Asya</button>
+      <button class="f-btn" onclick="fp('americas',this)">🌎 Amerika</button>
+      <button class="f-btn" onclick="fp('mena',this)">🌍 MENA</button>
+      <button class="f-btn" onclick="fp('global',this)">🌐 Global</button>
+    </div>
+    <div class="p-grid" id="plans-grid"></div>
+  </div>
+</div>
+
+<!-- CHECKOUT -->
+<div id="sc-checkout" class="screen">
+  <div class="co-wrap">
+    <div class="co-grid">
+      <div class="co-left">
+        <h2>Ödeme</h2>
+        <span class="fs-lbl">Hesap Bilgileri</span>
+        <div class="frow">
+          <div class="ff"><label>Ad</label><input value="Ahmet" placeholder="Ad"></div>
+          <div class="ff"><label>Soyad</label><input value="Yılmaz" placeholder="Soyad"></div>
+        </div>
+        <div class="ff"><label>E-posta</label><input type="email" value="ahmet@primesimobile.com"></div>
+        <span class="fs-lbl" style="margin-top:20px">Ödeme Yöntemi</span>
+        <div class="pm-row">
+          <button class="pm-btn on" onclick="sPM(this,'card')">💳 Kart</button>
+          <button class="pm-btn" onclick="sPM(this,'apple')"> Apple Pay</button>
+          <button class="pm-btn" onclick="sPM(this,'google')">G Google Pay</button>
+          <button class="pm-btn" onclick="sPM(this,'paypal')">🅿️ PayPal</button>
+          <button class="pm-btn" onclick="sPM(this,'crypto')">₿ Kripto</button>
+        </div>
+        <div id="card-fields">
+          <div class="card-viz">
+            <div style="display:flex;justify-content:space-between"><span style="font-size:12px;opacity:.6;font-weight:700">PrimeSIM Mobile</span><span style="font-weight:800;opacity:.8">VISA</span></div>
+            <input class="cn-inp" id="cnum" placeholder="4242  4242  4242  4242" maxlength="19" oninput="fmtCard(this)">
+            <div class="card-row">
+              <input class="card-tiny" placeholder="MM/YY" maxlength="5" oninput="fmtExp(this)">
+              <input class="card-tiny" style="text-align:right" placeholder="CVV" type="password" maxlength="3">
+            </div>
+          </div>
+          <div class="ff"><label>Kart Sahibi</label><input value="AHMET YILMAZ" style="text-transform:uppercase"></div>
+        </div>
+        <div class="ff" style="margin-top:12px">
+          <label>Kupon Kodu</label>
+          <div style="display:flex;gap:8px">
+            <input id="coupon-inp" placeholder="PRIME20 gibi bir kod girin..." style="flex:1">
+            <button class="btn btn-outline-a btn-sm" onclick="applyCoupon()">Uygula</button>
+          </div>
+        </div>
+        <button class="btn btn-a btn-lg" style="width:100%;justify-content:center;border-radius:12px;margin-top:20px;font-family:var(--fh);font-size:16px;font-weight:900" onclick="completeOrder()">
+          🔒 Güvenli Öde — <span id="pay-amt">$12.00</span>
+        </button>
+        <p style="font-size:10px;color:var(--muted);text-align:center;margin-top:10px">256-bit SSL · Stripe PCI-DSS · Verileriniz güvende</p>
+      </div>
+      <div>
+        <div class="o-sum">
+          <h4>Sipariş Özeti</h4>
+          <div id="oi"></div>
+          <div class="o-total"><span>Toplam</span><span id="ototal">$12.00</span></div>
+          <div style="margin-top:14px">
+            <div class="o-si">Anında QR teslimi</div>
+            <div class="o-si">30 gün iade garantisi</div>
+            <div class="o-si">7/24 AI destek</div>
+            <div class="o-si">iOS 17.4+ push kurulum</div>
+            <div class="o-si">Android EuiccManager</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div id="sc-success" class="screen">
+  <div class="suc-wrap">
+    <div class="suc-ico">✓</div>
+    <h2 style="font-family:var(--fh);font-size:32px;font-weight:900;margin-bottom:10px">eSIM Hazır!</h2>
+    <p style="color:var(--muted);font-size:14px;line-height:1.7">Siparişiniz onaylandı. QR kodu ile eSIM'inizi kurabilirsiniz.</p>
+    <div class="qr-card">
+      <div class="qr-img">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <rect x="10" y="10" width="46" height="46" fill="none" stroke="#0A2540" stroke-width="3"/>
+          <rect x="19" y="19" width="28" height="28" fill="#0A2540"/>
+          <rect x="84" y="10" width="46" height="46" fill="none" stroke="#0A2540" stroke-width="3"/>
+          <rect x="93" y="19" width="28" height="28" fill="#0A2540"/>
+          <rect x="10" y="84" width="46" height="46" fill="none" stroke="#0A2540" stroke-width="3"/>
+          <rect x="19" y="93" width="28" height="28" fill="#0A2540"/>
+          <rect x="66" y="66" width="9" height="9" fill="#0A2540"/><rect x="79" y="66" width="9" height="9" fill="#0A2540"/>
+          <rect x="92" y="66" width="9" height="9" fill="#0A2540"/><rect x="105" y="66" width="25" height="9" fill="#0A2540"/>
+          <rect x="66" y="79" width="22" height="9" fill="#0A2540"/><rect x="92" y="79" width="9" height="9" fill="#0A2540"/>
+          <rect x="66" y="92" width="9" height="36" fill="#0A2540"/><rect x="79" y="92" width="9" height="9" fill="#0A2540"/>
+          <rect x="92" y="92" width="9" height="9" fill="#0A2540"/><rect x="105" y="99" width="25" height="9" fill="#0A2540"/>
+          <rect x="79" y="105" width="22" height="9" fill="#0A2540"/><rect x="105" y="112" width="25" height="18" fill="#0A2540"/>
+        </svg>
+      </div>
+      <div id="suc-plan" style="font-family:var(--fh);font-size:18px;font-weight:900;margin-bottom:8px"></div>
+      <div class="lpa-code" id="suc-lpa"></div>
+      <div style="display:flex;gap:8px;justify-content:center;margin-top:14px">
+        <button class="btn btn-p btn-sm">📩 E-posta Gönder</button>
+        <button class="btn btn-ghost btn-sm" onclick="toast('LPA kopyalandı!')">📋 Kopyala</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-a" onclick="goTo('myesims')">eSIM'lerimi Gör</button>
+      <button class="btn btn-ghost" onclick="goTo('home')">Yeni Plan Al</button>
+    </div>
+  </div>
+</div>
+
+<!-- MY ESIMS -->
+<div id="sc-myesims" class="screen">
+  <div class="me-wrap">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+      <div><h2 style="font-family:var(--fh);font-size:28px;font-weight:900;letter-spacing:-1px">eSIM'lerim</h2>
+      <p style="color:var(--muted);font-size:13px;margin-top:4px" id="esim-count">3 aktif profil</p></div>
+      <button class="btn btn-a" onclick="goTo('plans')">+ Yeni eSIM</button>
+    </div>
+    <div id="esim-list"></div>
+  </div>
+</div>
+
+<!-- WALLET -->
+<div id="sc-wallet" class="screen">
+  <div class="wl-wrap">
+    <div class="w-card">
+      <div class="w-lbl">PrimeSIM Mobile Cüzdan</div>
+      <div class="w-bal">₺ 247.50</div>
+      <div class="w-sub">≈ $8.25 USD · Son güncelleme: Az önce</div>
+      <div class="w-acts">
+        <button class="btn btn-a btn-sm">+ Bakiye Yükle</button>
+        <button class="btn btn-sm" style="background:rgba(255,255,255,.12);color:white;border:1.5px solid rgba(255,255,255,.2)">Geçmiş</button>
+        <button class="btn btn-sm" style="background:rgba(255,255,255,.12);color:white;border:1.5px solid rgba(255,255,255,.2)">Transfer</button>
+      </div>
+    </div>
+    <h3 style="font-family:var(--fh);font-size:17px;font-weight:800;margin-bottom:13px">Son İşlemler</h3>
+    <div class="tx-list" id="txlist"></div>
+  </div>
+</div>
+
+<div class="bot-nav">
+  <button class="bn on" id="bn-home" onclick="goTo('home')"><span class="bn-ico">🌍</span>Keşfet</button>
+  <button class="bn" id="bn-plans" onclick="goTo('plans')"><span class="bn-ico">📶</span>Planlar</button>
+  <button class="bn" id="bn-campaigns" onclick="goTo('campaigns')"><span class="bn-ico">🎁</span>Kampanya</button>
+  <button class="bn" id="bn-myesims" onclick="goTo('myesims')"><span class="bn-ico">📱</span>eSIM'lerim</button>
+  <button class="bn" id="bn-wallet" onclick="goTo('wallet')"><span class="bn-ico">👛</span>Cüzdan</button>
+</div>
+</div><!-- end mode-c -->
+
+<!-- AI CHATBOT -->
+<button class="chat-bubble" onclick="toggleChat()" id="chat-bubble" title="AI Destek">💬</button>
+<div class="chat-window" id="chat-win">
+  <div class="chat-header">
+    <div class="chat-title"><span class="chat-online"></span>PrimeSIM AI Asistan</div>
+    <button class="chat-close" onclick="toggleChat()">✕ Kapat</button>
+  </div>
+  <div class="chat-suggestions">
+    <span class="chat-sug" onclick="sendSug(this)">eSIM nasıl kurulur?</span>
+    <span class="chat-sug" onclick="sendSug(this)">Hangi ülkeler var?</span>
+    <span class="chat-sug" onclick="sendSug(this)">Fiyatlar nedir?</span>
+    <span class="chat-sug" onclick="sendSug(this)">İade politikası</span>
+  </div>
+  <div class="chat-msgs" id="chat-msgs"></div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chat-input" placeholder="Mesajınızı yazın..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">Gönder</button>
+  </div>
+</div>
+
+<!-- ═══ ADMIN MODE ═══ -->
+<div id="mode-a" style="display:none">
+<div class="admin-wrap">
+  <aside class="sidebar">
+    <div class="sb-sec">Ana Menü</div>
+    <button class="sb-item on" id="si-dashboard" onclick="aGo('dashboard')"><span class="sb-ico">📊</span>Dashboard</button>
+    <button class="sb-item" id="si-orders" onclick="aGo('orders')"><span class="sb-ico">📦</span>Siparişler<span class="sb-badge">12</span></button>
+    <button class="sb-item" id="si-esims" onclick="aGo('esims')"><span class="sb-ico">📶</span>eSIM Profiller</button>
+    <button class="sb-item" id="si-users" onclick="aGo('users')"><span class="sb-ico">👥</span>Kullanıcılar</button>
+    <div class="sb-sec">Ürün & Katalog</div>
+    <button class="sb-item" id="si-catalog" onclick="aGo('catalog')"><span class="sb-ico">🗂️</span>Katalog</button>
+    <button class="sb-item" id="si-products" onclick="aGo('products')"><span class="sb-ico">📱</span>Ürün Yönetimi</button>
+    <div class="sb-sec">Sağlayıcılar</div>
+    <button class="sb-item" id="si-providers" onclick="aGo('providers')"><span class="sb-ico">🔌</span>Provider'lar</button>
+    <button class="sb-item" id="si-suppliers" onclick="aGo('suppliers')"><span class="sb-ico">🏭</span>Supplier'lar</button>
+    <button class="sb-item" id="si-resellers" onclick="aGo('resellers')"><span class="sb-ico">🤝</span>Reseller'lar</button>
+    <div class="sb-sec">Pazarlama</div>
+    <button class="sb-item" id="si-campaigns" onclick="aGo('campaigns')"><span class="sb-ico">🎯</span>Kampanyalar</button>
+    <button class="sb-item" id="si-coupons" onclick="aGo('coupons')"><span class="sb-ico">🎟️</span>Kuponlar</button>
+    <div class="sb-sec">Finans</div>
+    <button class="sb-item" id="si-finance" onclick="aGo('finance')"><span class="sb-ico">💰</span>Gelir & Finans</button>
+    <button class="sb-item" id="si-payouts" onclick="aGo('payouts')"><span class="sb-ico">💸</span>Ödemeler</button>
+    <div class="sb-sec">Analitik & Raporlar</div>
+    <button class="sb-item" id="si-analytics" onclick="aGo('analytics')"><span class="sb-ico">📈</span>Analitik</button>
+    <button class="sb-item" id="si-reports" onclick="aGo('reports')"><span class="sb-ico">📄</span>Raporlar (Excel/PDF)</button>
+    <div class="sb-sec">Destek</div>
+    <button class="sb-item" id="si-support" onclick="aGo('support')"><span class="sb-ico">🎧</span>Destek<span class="sb-badge green">5</span></button>
+    <button class="sb-item" id="si-settings" onclick="aGo('settings')"><span class="sb-ico">⚙️</span>Ayarlar</button>
+  </aside>
+
+  <main class="admin-main">
+
+    <!-- DASHBOARD -->
+    <div id="a-dashboard" class="a-screen on">
+      <div class="a-hdr">
+        <div><div class="a-title">Dashboard</div><div class="a-sub">PrimeSIM Mobile · 14 Mart 2026</div></div>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost btn-sm" onclick="exportReport('pdf','dashboard')">📄 PDF</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportReport('excel','dashboard')">📊 Excel</button>
+          <button class="btn btn-a btn-sm" onclick="aGo('orders')">Siparişler →</button>
+        </div>
+      </div>
+      <div class="mtr mtr-4">
+        <div class="metric"><div class="m-lbl">Bugün Gelir</div><div class="m-val">$2,847</div><div class="m-tr up">↑ %18 dün'e göre</div></div>
+        <div class="metric"><div class="m-lbl">Toplam Sipariş</div><div class="m-val">347</div><div class="m-tr up">↑ %24 bu hafta</div></div>
+        <div class="metric"><div class="m-lbl">Aktif eSIM</div><div class="m-val">1,284</div><div class="m-tr up">↑ 34 yeni bugün</div></div>
+        <div class="metric"><div class="m-lbl">Provider Durumu</div><div class="m-val" style="color:#00a878">3/3</div><div class="m-tr" style="color:#00a878">● Tümü sağlıklı</div></div>
+      </div>
+      <div class="ch-grid">
+        <div class="ch-card"><h4>Haftalık Gelir ($)</h4><div class="bars" id="rev-bars"></div><div class="ch-lbls" id="rev-lbls"></div></div>
+        <div class="ch-card"><h4>Provider Dağılımı</h4><div class="donut-wrap"><div class="donut" style="background:conic-gradient(var(--a) 0deg 198deg,var(--w) 198deg 270deg,var(--p) 270deg 360deg)"></div><div><div class="dl-item"><div class="dl-dot" style="background:var(--a)"></div><span>eSIM Access <strong>55%</strong></span></div><div class="dl-item"><div class="dl-dot" style="background:var(--w)"></div><span>Telnyx <strong>20%</strong></span></div><div class="dl-item"><div class="dl-dot" style="background:var(--p)"></div><span>TCX <strong>25%</strong></span></div></div></div></div>
+      </div>
+      <div class="data-tbl">
+        <div class="tbl-hdr"><h3>Son Siparişler</h3><button class="btn btn-ghost btn-sm" onclick="aGo('orders')">Tümünü Gör</button></div>
+        <table><thead><tr><th>Sipariş</th><th>Kullanıcı</th><th>Plan</th><th>Tutar</th><th>Provider</th><th>Durum</th><th>Tarih</th></tr></thead>
+        <tbody id="dash-orders"></tbody></table>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div><h4 style="font-family:var(--fh);font-size:14px;font-weight:800;margin-bottom:12px">Sistem Bildirimleri</h4><div id="notifs-list"></div></div>
+        <div class="ch-card"><h4>Bölge Dağılımı</h4><div class="bars" id="region-bars"></div><div class="ch-lbls" id="region-lbls"></div></div>
+      </div>
+    </div>
+
+    <!-- ORDERS -->
+    <div id="a-orders" class="a-screen">
+      <div class="a-hdr">
+        <div><div class="a-title">Siparişler</div><div class="a-sub">Toplam 347 sipariş</div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <input style="background:white;border:1.5px solid var(--border);border-radius:9px;padding:8px 13px;font-size:12px;outline:none;font-family:var(--fb);width:200px" placeholder="🔍 Ara...">
+          <button class="btn btn-ghost btn-sm" onclick="exportReport('excel','orders')">📊 Excel</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportReport('pdf','orders')">📄 PDF</button>
+        </div>
+      </div>
+      <div class="f-row" style="margin-bottom:16px">
+        <button class="f-btn on">Tümü (347)</button>
+        <button class="f-btn">Aktif (284)</button>
+        <button class="f-btn">Bekliyor (12)</button>
+        <button class="f-btn">İade (8)</button>
+        <button class="f-btn">İptal (43)</button>
+      </div>
+      <div class="data-tbl">
+        <table><thead><tr><th>Sipariş No</th><th>Kullanıcı</th><th>Plan</th><th>Tutar</th><th>Provider</th><th>ICCID</th><th>Kupon</th><th>Durum</th><th>Tarih</th><th>İşlem</th></tr></thead>
+        <tbody id="all-orders"></tbody></table>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div id="a-users" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Kullanıcılar</div><div class="a-sub">12,847 kayıtlı</div></div>
+        <div style="display:flex;gap:8px"><input style="background:white;border:1.5px solid var(--border);border-radius:9px;padding:8px 13px;font-size:12px;outline:none;font-family:var(--fb);width:200px" placeholder="🔍 Ara..."><button class="btn btn-ghost btn-sm" onclick="exportReport('excel','users')">📊 Excel</button><button class="btn btn-p btn-sm">+ Kullanıcı</button></div>
+      </div>
+      <div class="mtr mtr-3 mb16">
+        <div class="metric"><div class="m-lbl">Toplam</div><div class="m-val">12,847</div><div class="m-tr up">↑ 234 bu hafta</div></div>
+        <div class="metric"><div class="m-lbl">Aktif (30g)</div><div class="m-val">4,291</div><div class="m-tr neutral">%33.4</div></div>
+        <div class="metric"><div class="m-lbl">Ort. LTV</div><div class="m-val">$47.20</div><div class="m-tr up">↑ %8</div></div>
+      </div>
+      <div class="data-tbl"><table><thead><tr><th>Kullanıcı</th><th>E-posta</th><th>Ülke</th><th>Sipariş</th><th>Harcama</th><th>Segment</th><th>Kayıt</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="users-tbl"></tbody></table></div>
+    </div>
+
+    <!-- CATALOG -->
+    <div id="a-catalog" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Katalog Yönetimi</div><div class="a-sub">Tüm eSIM ürün kataloğu</div></div><button class="btn btn-a btn-sm">+ Ürün Ekle</button></div>
+      <div class="mtr mtr-4">
+        <div class="metric"><div class="m-lbl">Toplam Ürün</div><div class="m-val">248</div><div class="m-tr up">↑ 12 yeni bu hafta</div></div>
+        <div class="metric"><div class="m-lbl">Aktif Plan</div><div class="m-val">186</div><div class="m-tr neutral">%75 aktif</div></div>
+        <div class="metric"><div class="m-lbl">Ülke Sayısı</div><div class="m-val">130+</div><div class="m-tr up">↑ 4 yeni</div></div>
+        <div class="metric"><div class="m-lbl">Provider</div><div class="m-val">3</div><div class="m-tr" style="color:#00a878">Tümü sağlıklı</div></div>
+      </div>
+      <div class="data-tbl"><table><thead><tr><th>Ülke</th><th>Data</th><th>Süre</th><th>Hız</th><th>Wholesale</th><th>Satış</th><th>Marj</th><th>Provider</th><th>Stok</th><th>Durum</th><th>İşlem</th></tr></thead><tbody id="catalog-tbl"></tbody></table></div>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div id="a-products" class="a-screen">
+      <div class="a-hdr"><div class="a-title">Ürün Yönetimi</div><button class="btn btn-a btn-sm">+ Yeni Ürün</button></div>
+      <div class="form-card">
+        <h4>Yeni Ürün Oluştur</h4>
+        <div class="form-grid">
+          <div class="form-field"><label>Ürün Adı</label><input placeholder="Japan 5GB 15 Days"></div>
+          <div class="form-field"><label>Ülke</label><select><option>Japonya</option><option>Almanya</option><option>ABD</option><option>Türkiye</option></select></div>
+          <div class="form-field"><label>Data Miktarı</label><input placeholder="5GB"></div>
+          <div class="form-field"><label>Geçerlilik (Gün)</label><input placeholder="15" type="number"></div>
+          <div class="form-field"><label>Hız</label><select><option>5G</option><option>4G</option></select></div>
+          <div class="form-field"><label>Provider</label><select><option>eSIM Access</option><option>Telnyx</option><option>Zendit</option></select></div>
+          <div class="form-field"><label>Wholesale Fiyat ($)</label><input placeholder="7.00" type="number"></div>
+          <div class="form-field"><label>Satış Fiyatı ($)</label><input placeholder="12.00" type="number"></div>
+        </div>
+        <button class="btn btn-a btn-sm" style="margin-top:12px" onclick="toast('Ürün oluşturuldu!')">Ürünü Kaydet</button>
+      </div>
+    </div>
+
+    <!-- PROVIDERS -->
+    <div id="a-providers" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">API Provider'lar</div><div class="a-sub">eSIM sağlayıcı yönetimi</div></div><button class="btn btn-a btn-sm" onclick="toast('Provider ekleme formu açıldı')">+ Provider Ekle</button></div>
+      <div class="pv-grid" id="pv-grid"></div>
+      <div class="form-card" style="margin-top:20px">
+        <h4>Yeni Provider Ekle</h4>
+        <div class="form-grid">
+          <div class="form-field"><label>Provider Adı</label><input placeholder="Provider adı"></div>
+          <div class="form-field"><label>API Base URL</label><input placeholder="https://api.provider.com/v1"></div>
+          <div class="form-field"><label>API Key</label><input placeholder="API anahtarı" type="password"></div>
+          <div class="form-field"><label>Kapsama (Ülke Sayısı)</label><input placeholder="150+" type="number"></div>
+          <div class="form-field"><label>Webhook URL</label><input placeholder="https://primesimobile.com/webhook/provider"></div>
+          <div class="form-field"><label>Öncelik (1=en yüksek)</label><input placeholder="1" type="number"></div>
+        </div>
+        <button class="btn btn-a btn-sm" style="margin-top:12px" onclick="toast('Provider eklendi! API testi yapılıyor...')">Provider Ekle & Test Et</button>
+      </div>
+    </div>
+
+    <!-- SUPPLIERS -->
+    <div id="a-suppliers" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Supplier Yönetimi</div><div class="a-sub">Toptan tedarikçiler</div></div><button class="btn btn-a btn-sm">+ Supplier Ekle</button></div>
+      <div class="data-tbl"><table><thead><tr><th>Supplier Adı</th><th>Tür</th><th>Ülkeler</th><th>Wholesale Fiyat</th><th>Aylık Ciro</th><th>Sözleşme Bitiş</th><th>Durum</th><th>İşlem</th></tr></thead>
+      <tbody id="suppliers-tbl"></tbody></table></div>
+      <div class="form-card" style="margin-top:16px">
+        <h4>Yeni Supplier Ekle</h4>
+        <div class="form-grid">
+          <div class="form-field"><label>Şirket Adı</label><input placeholder="Supplier şirketi"></div>
+          <div class="form-field"><label>İletişim Kişisi</label><input placeholder="Ad Soyad"></div>
+          <div class="form-field"><label>E-posta</label><input type="email" placeholder="email@supplier.com"></div>
+          <div class="form-field"><label>Telefon</label><input placeholder="+1 xxx xxx xx xx"></div>
+          <div class="form-field"><label>Kapsama Bölgesi</label><select><option>Global</option><option>Avrupa</option><option>Asya</option><option>MENA</option><option>Amerika</option></select></div>
+          <div class="form-field"><label>Min. Sipariş ($/ay)</label><input placeholder="500" type="number"></div>
+        </div>
+        <button class="btn btn-a btn-sm" style="margin-top:12px" onclick="toast('Supplier eklendi, NDA süreci başlatıldı!')">Supplier Ekle</button>
+      </div>
+    </div>
+
+    <!-- RESELLERS -->
+    <div id="a-resellers" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Reseller Yönetimi</div><div class="a-sub">B2B dağıtıcı ağı</div></div><button class="btn btn-a btn-sm">+ Reseller Ekle</button></div>
+      <div class="mtr mtr-3" style="margin-bottom:16px">
+        <div class="metric"><div class="m-lbl">Toplam Reseller</div><div class="m-val">47</div><div class="m-tr up">↑ 3 yeni bu ay</div></div>
+        <div class="metric"><div class="m-lbl">Aylık GMV</div><div class="m-val">$28,400</div><div class="m-tr up">↑ %34</div></div>
+        <div class="metric"><div class="m-lbl">Ort. Komisyon</div><div class="m-val">%18.5</div><div class="m-tr neutral">Değişmedi</div></div>
+      </div>
+      <div class="data-tbl"><table><thead><tr><th>Reseller</th><th>Tür</th><th>Ülke</th><th>Bu Ay Satış</th><th>Komisyon</th><th>API Key</th><th>White-Label</th><th>Durum</th><th>İşlem</th></tr></thead>
+      <tbody id="resellers-tbl"></tbody></table></div>
+      <div class="form-card" style="margin-top:16px">
+        <h4>Yeni Reseller Ekle</h4>
+        <div class="form-grid">
+          <div class="form-field"><label>Şirket Adı</label><input placeholder="Reseller şirketi"></div>
+          <div class="form-field"><label>Tür</label><select><option>B2B Distributor</option><option>White-Label</option><option>API Partner</option><option>Affiliate</option></select></div>
+          <div class="form-field"><label>Komisyon Oranı (%)</label><input placeholder="15" type="number"></div>
+          <div class="form-field"><label>Min. Aylık Sipariş</label><input placeholder="100" type="number"></div>
+          <div class="form-field"><label>White-Label Domain</label><input placeholder="esim.partner.com"></div>
+          <div class="form-field"><label>Ülke</label><select><option>Türkiye</option><option>Almanya</option><option>ABD</option><option>BAE</option><option>Diğer</option></select></div>
+        </div>
+        <button class="btn btn-a btn-sm" style="margin-top:12px" onclick="toast('Reseller eklendi, API key oluşturuldu!')">Reseller Ekle & API Key Oluştur</button>
+      </div>
+    </div>
+
+    <!-- CAMPAIGNS ADMIN -->
+    <div id="a-campaigns" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Kampanya Yönetimi</div><div class="a-sub">Aktif: 3 · Planlanan: 2 · Tamamlanan: 12</div></div><button class="btn btn-a btn-sm" onclick="toast('Yeni kampanya formu açıldı')">+ Kampanya Oluştur</button></div>
+      <div class="mtr mtr-4" style="margin-bottom:16px">
+        <div class="metric"><div class="m-lbl">Aktif Kampanya</div><div class="m-val">3</div><div class="m-tr up">↑ 1 bu hafta</div></div>
+        <div class="metric"><div class="m-lbl">Toplam Kullanım</div><div class="m-val">1,247</div><div class="m-tr up">↑ %42</div></div>
+        <div class="metric"><div class="m-lbl">Kampanya Geliri</div><div class="m-val">$18,400</div><div class="m-tr up">↑ %28</div></div>
+        <div class="metric"><div class="m-lbl">Ort. İndirim</div><div class="m-val">%22</div><div class="m-tr neutral">Stabil</div></div>
+      </div>
+      <div class="data-tbl" style="margin-bottom:20px"><table><thead><tr><th>Kampanya Adı</th><th>Tür</th><th>İndirim</th><th>Kullanım</th><th>Limit</th><th>Başlangıç</th><th>Bitiş</th><th>Gelir</th><th>Durum</th><th>İşlem</th></tr></thead>
+      <tbody id="campaigns-tbl"></tbody></table></div>
+      <div class="form-card">
+        <h4>Yeni Kampanya Oluştur</h4>
+        <div class="form-grid">
+          <div class="form-field"><label>Kampanya Adı</label><input placeholder="Yaz Fırsatları 2025"></div>
+          <div class="form-field"><label>Tür</label><select><option>Yüzde İndirim</option><option>Sabit İndirim</option><option>Bedava Ürün</option><option>Flash Sale</option><option>Paket İndirim</option></select></div>
+          <div class="form-field"><label>İndirim Değeri</label><input placeholder="20" type="number"></div>
+          <div class="form-field"><label>Kullanım Limiti</label><input placeholder="500" type="number"></div>
+          <div class="form-field"><label>Başlangıç Tarihi</label><input type="date" value="2025-06-01"></div>
+          <div class="form-field"><label>Bitiş Tarihi</label><input type="date" value="2025-08-31"></div>
+          <div class="form-field"><label>Hedef Segment</label><select><option>Tüm Kullanıcılar</option><option>Yeni Kullanıcılar</option><option>Geri Dönen</option><option>B2B Müşteriler</option><option>VIP</option></select></div>
+          <div class="form-field"><label>Min. Sepet Tutarı ($)</label><input placeholder="0" type="number"></div>
+        </div>
+        <div class="form-field" style="margin-top:10px"><label>Açıklama</label><textarea placeholder="Kampanya açıklaması..."></textarea></div>
+        <button class="btn btn-a btn-sm" style="margin-top:12px" onclick="toast('Kampanya oluşturuldu ve yayına alındı!')">Kampanya Oluştur & Yayınla</button>
+      </div>
+    </div>
+
+    <!-- COUPONS -->
+    <div id="a-coupons" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Kupon Yönetimi</div><div class="a-sub">Aktif: 8 kupon</div></div><button class="btn btn-a btn-sm" onclick="toast('Kupon oluşturuldu: PRIME'+(Math.floor(Math.random()*90)+10))">+ Kupon Oluştur</button></div>
+      <div class="mtr mtr-4" style="margin-bottom:16px">
+        <div class="metric"><div class="m-lbl">Aktif Kupon</div><div class="m-val">8</div></div>
+        <div class="metric"><div class="m-lbl">Bu Ay Kullanım</div><div class="m-val">342</div><div class="m-tr up">↑ %18</div></div>
+        <div class="metric"><div class="m-lbl">Toplam İndirim</div><div class="m-val">$4,128</div></div>
+        <div class="metric"><div class="m-lbl">Dönüşüm Katkısı</div><div class="m-val">%12.4</div><div class="m-tr up">↑ %2.1</div></div>
+      </div>
+      <div class="data-tbl"><table><thead><tr><th>Kupon Kodu</th><th>İndirim</th><th>Tür</th><th>Kullanım</th><th>Limit</th><th>Kampanya</th><th>Geçerlilik</th><th>Durum</th><th>İşlem</th></tr></thead>
+      <tbody id="coupons-tbl"></tbody></table></div>
+      <div class="form-card" style="margin-top:16px">
+        <h4>Toplu Kupon Oluştur</h4>
+        <div class="form-grid-3">
+          <div class="form-field"><label>Kupon Öneki</label><input value="PRIME" placeholder="PRIME"></div>
+          <div class="form-field"><label>Adet</label><input placeholder="100" type="number" value="50"></div>
+          <div class="form-field"><label>İndirim (%)</label><input placeholder="20" type="number" value="20"></div>
+          <div class="form-field"><label>Bitiş Tarihi</label><input type="date" value="2025-12-31"></div>
+          <div class="form-field"><label>Kişi Başı Kullanım</label><input placeholder="1" type="number" value="1"></div>
+          <div class="form-field"><label>Kampanyaya Bağla</label><select><option>Yaz Fırsatları</option><option>Business Deal</option><option>Flash Sale</option></select></div>
+        </div>
+        <button class="btn btn-a btn-sm" style="margin-top:12px" onclick="toast('50 adet kupon oluşturuldu! CSV olarak indiriliyor...')">Toplu Kupon Oluştur & İndir</button>
+      </div>
+    </div>
+
+    <!-- FINANCE -->
+    <div id="a-finance" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Gelir & Finans</div></div>
+        <div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" onclick="exportReport('pdf','finance')">📄 PDF Rapor</button><button class="btn btn-ghost btn-sm" onclick="exportReport('excel','finance')">📊 Excel</button></div>
+      </div>
+      <div class="mtr mtr-4">
+        <div class="metric"><div class="m-lbl">Bu Ay Gelir</div><div class="m-val">$84,291</div><div class="m-tr up">↑ %22</div></div>
+        <div class="metric"><div class="m-lbl">Net Kâr</div><div class="m-val">$31,428</div><div class="m-tr up">%37.3 marj</div></div>
+        <div class="metric"><div class="m-lbl">Stripe Bakiye</div><div class="m-val">$12,847</div><div class="m-tr neutral">Transfer bekliyor</div></div>
+        <div class="metric"><div class="m-lbl">İade Toplamı</div><div class="m-val">$1,240</div><div class="m-tr dn">%1.5 oran</div></div>
+      </div>
+      <div class="ch-grid">
+        <div class="ch-card"><h4>Aylık Gelir Trendi ($K)</h4><div class="bars" id="monthly-bars"></div><div class="ch-lbls" id="monthly-lbls"></div></div>
+        <div class="ch-card"><h4>Gelir Kaynakları</h4><div class="donut-wrap"><div class="donut" style="background:conic-gradient(var(--p) 0deg 230deg,var(--a) 230deg 296deg,var(--w) 296deg 360deg)"></div><div><div class="dl-item"><div class="dl-dot" style="background:var(--p)"></div><span>B2C <strong>64%</strong></span></div><div class="dl-item"><div class="dl-dot" style="background:var(--a)"></div><span>B2B <strong>18%</strong></span></div><div class="dl-item"><div class="dl-dot" style="background:var(--w)"></div><span>Top-Up <strong>18%</strong></span></div></div></div></div>
+      </div>
+    </div>
+
+    <!-- PAYOUTS -->
+    <div id="a-payouts" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Ödemeler</div></div><button class="btn btn-ghost btn-sm">Stripe'a Git ↗</button></div>
+      <div class="data-tbl"><div class="tbl-hdr"><h3>Stripe İşlem Geçmişi</h3><button class="btn btn-ghost btn-sm" onclick="exportReport('excel','payouts')">📊 Excel</button></div>
+      <table><thead><tr><th>İşlem ID</th><th>Tür</th><th>Tutar</th><th>Kullanıcı</th><th>Yöntem</th><th>Durum</th><th>Tarih</th></tr></thead>
+      <tbody id="payouts-tbl"></tbody></table></div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div id="a-analytics" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Analitik</div><div class="a-sub">Tam platform performansı</div></div>
+        <div style="display:flex;gap:8px"><select style="background:white;border:1.5px solid var(--border);border-radius:9px;padding:8px 12px;font-size:12px;font-family:var(--fb)"><option>Son 7 gün</option><option>Son 30 gün</option><option>Son 90 gün</option><option>Bu yıl</option></select><button class="btn btn-ghost btn-sm" onclick="exportReport('pdf','analytics')">📄 PDF</button><button class="btn btn-ghost btn-sm" onclick="exportReport('excel','analytics')">📊 Excel</button></div>
+      </div>
+      <div class="mtr mtr-4">
+        <div class="metric"><div class="m-lbl">Konversiyon Oranı</div><div class="m-val">%6.8</div><div class="m-tr up">↑ %1.2</div></div>
+        <div class="metric"><div class="m-lbl">Ortalama Sipariş</div><div class="m-val">$16.40</div><div class="m-tr up">↑ %4</div></div>
+        <div class="metric"><div class="m-lbl">Churn Oranı</div><div class="m-val">%3.2</div><div class="m-tr dn">↓ %0.4 iyileşme</div></div>
+        <div class="metric"><div class="m-lbl">NPS Puanı</div><div class="m-val">72</div><div class="m-tr up">↑ 4 puan</div></div>
+      </div>
+      <div class="ch-grid">
+        <div class="ch-card"><h4>DAU (Günlük Aktif Kullanıcı)</h4><div class="bars" id="dau-bars"></div><div class="ch-lbls" id="dau-lbls"></div></div>
+        <div class="ch-card"><h4>Ülke Bazlı Satış</h4><div class="bars" id="cntry-bars"></div><div class="ch-lbls" id="cntry-lbls"></div></div>
+      </div>
+      <div class="ch-grid">
+        <div class="ch-card"><h4>Kupon Kullanım Trendi</h4><div class="bars" id="coup-bars"></div><div class="ch-lbls" id="coup-lbls"></div></div>
+        <div class="ch-card"><h4>Reseller Performansı</h4><div class="bars" id="rsl-bars"></div><div class="ch-lbls" id="rsl-lbls"></div></div>
+      </div>
+      <div class="data-tbl">
+        <div class="tbl-hdr"><h3>Kaynak Bazlı Trafik</h3></div>
+        <table><thead><tr><th>Kaynak</th><th>Ziyaretçi</th><th>Sipariş</th><th>Konversiyon</th><th>Gelir</th></tr></thead>
+        <tbody><tr><td>Organik Arama</td><td>12,400</td><td>840</td><td>%6.8</td><td>$13,776</td></tr>
+        <tr><td>Sosyal Medya</td><td>8,200</td><td>492</td><td>%6.0</td><td>$8,069</td></tr>
+        <tr><td>Reseller Referral</td><td>4,800</td><td>384</td><td>%8.0</td><td>$6,298</td></tr>
+        <tr><td>E-posta Kampanyası</td><td>2,900</td><td>261</td><td>%9.0</td><td>$4,280</td></tr>
+        <tr><td>Direkt</td><td>3,200</td><td>192</td><td>%6.0</td><td>$3,149</td></tr></tbody>
+      </table></div>
+    </div>
+
+    <!-- REPORTS -->
+    <div id="a-reports" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Raporlar</div><div class="a-sub">Excel ve PDF raporlar</div></div></div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div class="ch-card" style="text-align:center;cursor:pointer" onclick="exportReport('excel','full-sales')">
+          <div style="font-size:40px;margin-bottom:12px">📊</div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Satış Raporu</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Tüm satış verileri, sipariş detayları, gelir analizi</div>
+          <button class="btn btn-outline-a btn-sm">Excel İndir</button>
+        </div>
+        <div class="ch-card" style="text-align:center;cursor:pointer" onclick="exportReport('pdf','full-sales')">
+          <div style="font-size:40px;margin-bottom:12px">📄</div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Satış PDF Raporu</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Yönetici özeti, grafikler, trend analizi</div>
+          <button class="btn btn-p btn-sm">PDF İndir</button>
+        </div>
+        <div class="ch-card" style="text-align:center;cursor:pointer" onclick="exportReport('excel','users')">
+          <div style="font-size:40px;margin-bottom:12px">👥</div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Kullanıcı Raporu</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Kullanıcı segmentleri, LTV, churn analizi</div>
+          <button class="btn btn-outline-a btn-sm">Excel İndir</button>
+        </div>
+        <div class="ch-card" style="text-align:center;cursor:pointer" onclick="exportReport('excel','finance')">
+          <div style="font-size:40px;margin-bottom:12px">💰</div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Finansal Rapor</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Gelir, kâr marjı, Stripe mutabakatı</div>
+          <button class="btn btn-outline-a btn-sm">Excel İndir</button>
+        </div>
+        <div class="ch-card" style="text-align:center;cursor:pointer" onclick="exportReport('excel','coupons')">
+          <div style="font-size:40px;margin-bottom:12px">🎟️</div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Kupon & Kampanya</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Kupon performansı, kampanya ROI analizi</div>
+          <button class="btn btn-outline-a btn-sm">Excel İndir</button>
+        </div>
+        <div class="ch-card" style="text-align:center;cursor:pointer" onclick="exportReport('excel','resellers')">
+          <div style="font-size:40px;margin-bottom:12px">🤝</div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Reseller Raporu</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Reseller performansı, komisyon özeti</div>
+          <button class="btn btn-outline-a btn-sm">Excel İndir</button>
+        </div>
+        <div class="ch-card" style="text-align:center;cursor:pointer" onclick="exportReport('pdf','providers')">
+          <div style="font-size:40px;margin-bottom:12px">🔌</div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Provider Raporu</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Provider SLA, uptime, maliyet analizi</div>
+          <button class="btn btn-p btn-sm">PDF İndir</button>
+        </div>
+        <div class="ch-card" style="text-align:center;cursor:pointer" onclick="exportReport('excel','analytics')">
+          <div style="font-size:40px;margin-bottom:12px">📈</div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Analitik Raporu</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Tüm KPI'lar, trafik kaynakları, segment analizi</div>
+          <button class="btn btn-outline-a btn-sm">Excel İndir</button>
+        </div>
+        <div class="ch-card" style="text-align:center;cursor:pointer" onclick="exportReport('pdf','full')">
+          <div style="font-size:40px;margin-bottom:12px">📋</div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:800;margin-bottom:6px">Tam Platform Raporu</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Tüm modülleri kapsayan yönetici raporu</div>
+          <button class="btn btn-a btn-sm">PDF İndir</button>
+        </div>
+      </div>
+      <div class="form-card" style="margin-top:20px">
+        <h4>Özel Rapor Oluştur</h4>
+        <div class="form-grid">
+          <div class="form-field"><label>Rapor Türü</label><select><option>Satış Raporu</option><option>Kullanıcı Analizi</option><option>Finansal Özet</option><option>Kampanya ROI</option><option>Provider Analizi</option></select></div>
+          <div class="form-field"><label>Format</label><select><option>Excel (.xlsx)</option><option>PDF</option><option>CSV</option></select></div>
+          <div class="form-field"><label>Başlangıç Tarihi</label><input type="date" value="2025-01-01"></div>
+          <div class="form-field"><label>Bitiş Tarihi</label><input type="date" value="2025-03-14"></div>
+          <div class="form-field"><label>Segment Filtresi</label><select><option>Tümü</option><option>B2C</option><option>B2B</option><option>Reseller</option></select></div>
+          <div class="form-field"><label>Bölge Filtresi</label><select><option>Global</option><option>Avrupa</option><option>Asya</option><option>MENA</option><option>Amerika</option></select></div>
+        </div>
+        <button class="btn btn-a btn-sm" style="margin-top:12px" onclick="exportReport('custom','custom')">Rapor Oluştur & İndir</button>
+      </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div id="a-support" class="a-screen">
+      <div class="a-hdr"><div><div class="a-title">Destek Talepleri</div></div>
+        <span class="tag tag-o" style="font-size:12px;padding:6px 14px">5 Açık Bilet</span>
+      </div>
+      <div class="mtr mtr-4" style="margin-bottom:16px">
+        <div class="metric"><div class="m-lbl">Açık Bilet</div><div class="m-val">5</div><div class="m-tr dn">2 kritik</div></div>
+        <div class="metric"><div class="m-lbl">Ort. Yanıt Süresi</div><div class="m-val">14dk</div><div class="m-tr up">↑ SLA altında</div></div>
+        <div class="metric"><div class="m-lbl">Bu Ay Çözülen</div><div class="m-val">124</div><div class="m-tr up">%96.8 memnuniyet</div></div>
+        <div class="metric"><div class="m-lbl">AI Chatbot Çözdü</div><div class="m-val">%67</div><div class="m-tr up">↑ %12</div></div>
+      </div>
+      <div class="data-tbl"><table><thead><tr><th>Bilet No</th><th>Kullanıcı</th><th>Konu</th><th>Öncelik</th><th>Kanal</th><th>Durum</th><th>Tarih</th><th>İşlem</th></tr></thead>
+      <tbody id="support-tbl"></tbody></table></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="a-settings" class="a-screen">
+      <div class="a-hdr"><div class="a-title">Platform Ayarları</div></div>
+      <div class="set-grid">
+        <div class="set-card"><h4>💳 Stripe <span class="connected">Bağlı</span></h4>
+          <div class="ff"><label>Publishable Key</label><input value="pk_live_••••••••" type="password"></div>
+          <div class="ff"><label>Secret Key</label><input value="sk_live_••••••••" type="password"></div>
+          <div class="ff"><label>Webhook Secret</label><input value="whsec_••••••••" type="password"></div>
+        </div>
+        <div class="set-card"><h4>🔌 eSIM Access <span class="connected">Bağlı · 100+ ülke</span></h4>
+          <div class="ff"><label>API Key</label><input value="ea_live_••••••••" type="password"></div>
+          <div class="ff"><label>Base URL</label><input value="https://api.esimaccess.com/api/v1"></div>
+          <button class="btn btn-outline-a btn-sm" style="margin-top:8px" onclick="toast('eSIM Access bağlantısı test ediliyor...')">Test Et</button>
+        </div>
+        <div class="set-card"><h4>🔌 Telnyx <span class="connected">Bağlı · 180+ ülke</span></h4>
+          <div class="ff"><label>API Key</label><input value="KEY••••••••" type="password"></div>
+          <button class="btn btn-outline-a btn-sm" style="margin-top:8px" onclick="toast('Telnyx bağlantısı test ediliyor...')">Test Et</button>
+        </div>
+        <div class="set-card"><h4>🔔 Firebase FCM <span class="connected">Aktif</span></h4>
+          <div class="ff"><label>FCM Server Key</label><input value="AAAA••••••••" type="password"></div>
+          <div class="ff"><label>Project ID</label><input value="primesim-mobile"></div>
+        </div>
+        <div class="set-card"><h4>🤖 Claude AI <span class="connected">Aktif</span></h4>
+          <div class="ff"><label>Anthropic API Key</label><input value="sk-ant-••••••••" type="password"></div>
+          <div class="ff"><label>Model</label><select><option>claude-sonnet-4-6</option><option>claude-opus-4-6</option></select></div>
+        </div>
+        <div class="set-card"><h4>🌐 Platform</h4>
+          <div class="ff"><label>Site Adı</label><input value="PrimeSIM Mobile"></div>
+          <div class="ff"><label>Destek E-postası</label><input value="support@primesimobile.com"></div>
+          <div class="ff"><label>Varsayılan Dil</label><select><option>Türkçe</option><option>English</option></select></div>
+          <div class="toggle"><span>Bakım Modu</span><div class="toggle-sw" onclick="this.classList.toggle('on')"></div></div>
+          <div class="toggle"><span>Test Modu (Stripe)</span><div class="toggle-sw" onclick="this.classList.toggle('on')"></div></div>
+          <button class="btn btn-a btn-sm" style="margin-top:12px" onclick="toast('Ayarlar kaydedildi!')">Kaydet</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+</div><!-- end mode-a -->
+
+<script>
+// ─── TRANSLATIONS ───
+const i18n = {
+  tr:{heroTag:"130+ ülke · Anında aktivasyon",heroTitle:"Seyahat et,<br>bağlı kal.<br><em>Her yerde.</em>",heroDesc:"PrimeSIM Mobile ile fiziksel SIM kart olmadan 130+ ülkede anında veri.",whereGoing:"Nereye gidiyorsunuz?",searchPh:"Ülke veya bölge ara...",popular:"Popüler destinasyonlar",explorePlans:"Planları Keşfet",myEsims:"eSIM'lerimi Gör",countries:"Ülke",users:"Kullanıcı",rating:"Puan",featuredPlans:"Öne Çıkan Planlar",viewAll:"Tümünü Gör →",howWorks:"Nasıl Çalışır?",step1t:"1. Ülke Seç",step1d:"130+ ülke arasından hedefini bul",step2t:"2. Güvenle Öde",step2d:"Stripe, Apple Pay, Google Pay",step3t:"3. QR ile Kur",step3d:"QR veya push kurulum — saniyeler içinde",step4t:"4. Bağlan!",step4d:"Varır varmaz otomatik aktive",t1:"Stripe ile Güvenli Ödeme",t2:"Anında QR Teslimat",t3:"iOS 17.4+ Tek Dokunuş",t4:"7/24 Türkçe Destek",t5:"30 Gün İade"},
+  en:{heroTag:"130+ countries · Instant activation",heroTitle:"Travel the world,<br><em>stay connected.</em>",heroDesc:"Get instant data in 130+ countries without a physical SIM card.",whereGoing:"Where are you going?",searchPh:"Search country or region...",popular:"Popular destinations",explorePlans:"Explore Plans",myEsims:"My eSIMs",countries:"Countries",users:"Users",rating:"Rating",featuredPlans:"Featured Plans",viewAll:"View All →",howWorks:"How It Works",step1t:"1. Choose Country",step1d:"Find your destination from 130+ countries",step2t:"2. Pay Securely",step2d:"Stripe, Apple Pay, Google Pay",step3t:"3. Install via QR",step3d:"QR or push install in seconds",step4t:"4. Connect!",step4d:"Auto-activated on arrival",t1:"Secure Stripe Payment",t2:"Instant QR Delivery",t3:"iOS 17.4+ One-Tap",t4:"24/7 Support",t5:"30-Day Guarantee"},
+  de:{heroTag:"130+ Länder · Sofortaktivierung",heroTitle:"Reise die Welt,<br><em>bleib verbunden.</em>",heroDesc:"Sofortige Daten in 130+ Ländern ohne physische SIM-Karte.",whereGoing:"Wohin reisen Sie?",searchPh:"Land oder Region suchen...",popular:"Beliebte Reiseziele",explorePlans:"Pläne entdecken",myEsims:"Meine eSIMs",countries:"Länder",users:"Nutzer",rating:"Bewertung",featuredPlans:"Empfohlene Pläne",viewAll:"Alle anzeigen →",howWorks:"Wie funktioniert's?",step1t:"1. Land wählen",step1d:"130+ Länder entdecken",step2t:"2. Sicher bezahlen",step2d:"Stripe, Apple Pay, Google Pay",step3t:"3. QR installieren",step3d:"QR oder Push-Installation",step4t:"4. Verbinden!",step4d:"Automatisch aktiviert",t1:"Sichere Zahlung",t2:"Sofortige QR-Lieferung",t3:"iOS 17.4+ Ein-Tipp",t4:"24/7 Support",t5:"30 Tage Garantie"},
+  fr:{heroTag:"130+ pays · Activation instantanée",heroTitle:"Voyagez,<br><em>restez connecté.</em>",heroDesc:"Données instantanées dans 130+ pays sans carte SIM physique.",whereGoing:"Où allez-vous?",searchPh:"Rechercher un pays...",popular:"Destinations populaires",explorePlans:"Explorer les plans",myEsims:"Mes eSIMs",countries:"Pays",users:"Utilisateurs",rating:"Note",featuredPlans:"Plans en vedette",viewAll:"Voir tout →",howWorks:"Comment ça marche?",step1t:"1. Choisir le pays",step1d:"130+ pays disponibles",step2t:"2. Payer en sécurité",step2d:"Stripe, Apple Pay, Google Pay",step3t:"3. Installer via QR",step3d:"QR ou installation push",step4t:"4. Se connecter!",step4d:"Activé automatiquement",t1:"Paiement Stripe sécurisé",t2:"Livraison QR instantanée",t3:"iOS 17.4+",t4:"Support 24/7",t5:"30 jours de garantie"},
+  es:{heroTag:"130+ países · Activación instantánea",heroTitle:"Viaja,<br><em>mantente conectado.</em>",heroDesc:"Datos instantáneos en 130+ países sin tarjeta SIM física.",whereGoing:"¿A dónde vas?",searchPh:"Buscar país o región...",popular:"Destinos populares",explorePlans:"Explorar planes",myEsims:"Mis eSIMs",countries:"Países",users:"Usuarios",rating:"Calificación",featuredPlans:"Planes destacados",viewAll:"Ver todos →",howWorks:"¿Cómo funciona?",step1t:"1. Elige país",step1d:"130+ países disponibles",step2t:"2. Paga seguro",step2d:"Stripe, Apple Pay, Google Pay",step3t:"3. Instala QR",step3d:"QR o instalación push",step4t:"4. ¡Conéctate!",step4d:"Activado automáticamente",t1:"Pago Stripe seguro",t2:"Entrega QR instantánea",t3:"iOS 17.4+",t4:"Soporte 24/7",t5:"30 días garantía"},
+};
+// Short aliases for other langs
+['it','pt','ru','ar','zh','ja','ko','nl','pl','sv','da','fi','no','th','id'].forEach(l=>{i18n[l]=i18n['en']});
+
+function changeLang(l){
+  const t=i18n[l]||i18n.tr;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(t[k])el.innerHTML=t[k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const k=el.getAttribute('data-i18n-ph');
+    if(t[k])el.placeholder=t[k];
+  });
+  document.documentElement.lang=l;
+  toast('Dil değiştirildi / Language changed');
+}
+
+// ─── DATA ───
+const PLANS=[
+  {id:1,c:'Japonya',f:'🇯🇵',r:'asia',d:'5GB',t:15,s:'5G',p:12,pv:'eSIM Access',feat:true,iccid:'8901420000000001'},
+  {id:2,c:'Almanya',f:'🇩🇪',r:'europe',d:'10GB',t:30,s:'5G',p:18,pv:'Telnyx',feat:false,iccid:'8901420000000002'},
+  {id:3,c:'ABD',f:'🇺🇸',r:'americas',d:'3GB',t:7,s:'5G',p:9,pv:'eSIM Access',feat:true,iccid:'8901420000000003'},
+  {id:4,c:'Tayland',f:'🇹🇭',r:'asia',d:'8GB',t:30,s:'4G',p:14,pv:'Zendit',feat:false,iccid:'8901420000000004'},
+  {id:5,c:'Fransa',f:'🇫🇷',r:'europe',d:'5GB',t:15,s:'5G',p:11,pv:'Telnyx',feat:false,iccid:'8901420000000005'},
+  {id:6,c:'BAE',f:'🇦🇪',r:'mena',d:'5GB',t:10,s:'5G',p:16,pv:'eSIM Access',feat:false,iccid:'8901420000000006'},
+  {id:7,c:'Brezilya',f:'🇧🇷',r:'americas',d:'3GB',t:15,s:'4G',p:10,pv:'Zendit',feat:false,iccid:'8901420000000007'},
+  {id:8,c:'Global',f:'🌍',r:'global',d:'1GB/gün',t:30,s:'5G',p:45,pv:'eSIM Access',feat:true,iccid:'8901420000000008'},
+  {id:9,c:'Güney Kore',f:'🇰🇷',r:'asia',d:'10GB',t:30,s:'5G',p:16,pv:'Telnyx',feat:false,iccid:'8901420000000009'},
+  {id:10,c:'Türkiye',f:'🇹🇷',r:'europe',d:'10GB',t:30,s:'5G',p:8,pv:'eSIM Access',feat:true,iccid:'8901420000000010'},
+  {id:11,c:'İspanya',f:'🇪🇸',r:'europe',d:'20GB',t:30,s:'5G',p:22,pv:'eSIM Access',feat:false,iccid:'8901420000000011'},
+  {id:12,c:'Avustralya',f:'🇦🇺',r:'asia',d:'5GB',t:14,s:'5G',p:13,pv:'Telnyx',feat:false,iccid:'8901420000000012'},
+];
+const POPS=['🇯🇵 Japonya','🇩🇪 Almanya','🇺🇸 ABD','🇹🇭 Tayland','🇫🇷 Fransa','🇦🇪 BAE','🌍 Global','🇹🇷 Türkiye'];
+let selPlan=null;
+let myESIMs=[
+  {f:'🇩🇪',c:'Almanya',iccid:'8901420000000002',d:'10GB',used:3.2,t:30,left:18,st:'active',pv:'Telnyx'},
+  {f:'🇺🇸',c:'ABD',iccid:'8901420000000003',d:'3GB',used:2.8,t:7,left:1,st:'low',pv:'eSIM Access'},
+  {f:'🇹🇭',c:'Tayland',iccid:'8901420000000004',d:'8GB',used:8,t:30,left:0,st:'expired',pv:'Zendit'},
+];
+let extraE=[],extraTx=[];
+let txs=[
+  {type:'buy',name:'Almanya 10GB',date:'12 Mar 2026',amt:'-$18.00'},
+  {type:'top',name:'Bakiye Yükleme',date:'10 Mar 2026',amt:'+₺200.00'},
+  {type:'buy',name:'ABD 3GB',date:'5 Mar 2026',amt:'-$9.00'},
+];
+const COUPONS={PRIME20:{discount:20,type:'pct'},WELCOME10:{discount:10,type:'pct'},SUMMER15:{discount:15,type:'pct'},BUSINESS30:{discount:30,type:'pct'}};
+
+// ─── CUSTOMER FUNCS ───
+function pCard(p){return`<div class="p-card${p.feat?' feat':''}" onclick="buyPlan(${p.id})">${p.feat?'<div class="p-badge">En Popüler</div>':''}<div class="p-flag">${p.f}</div><div class="p-cn">${p.c}</div><div class="p-pv">📡 ${p.pv}</div><div class="p-chips"><span class="chip chip-d">📶 ${p.d}</span><span class="chip chip-t">⏱ ${p.t}g</span><span class="chip chip-s">⚡${p.s}</span></div><div class="p-bot"><div class="p-price">$${p.p}<span> USD</span></div><button class="buy-btn" onclick="event.stopPropagation();buyPlan(${p.id})">Satın Al</button></div></div>`}
+function renderFeat(){document.getElementById('feat-grid').innerHTML=PLANS.filter(p=>p.feat).map(pCard).join('')}
+function renderPlans(list){document.getElementById('plans-grid').innerHTML=list.map(pCard).join('')}
+function fp(r,btn){document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderPlans(r==='all'?PLANS:PLANS.filter(p=>p.r===r))}
+function filterC(q){
+  const el=document.getElementById('clist');
+  if(!q){el.innerHTML=POPS.map(c=>`<span class="c-pill" onclick="srchC('${c}')">${c}</span>`).join('');return;}
+  el.innerHTML=PLANS.filter(p=>p.c.toLowerCase().includes(q.toLowerCase())).map(p=>`<span class="c-pill" onclick="srchC('${p.f} ${p.c}')">${p.f} ${p.c}</span>`).join('');
+}
+function srchC(c){const n=c.split(' ').slice(1).join(' ');const pl=PLANS.find(p=>p.c===n);if(pl)buyPlan(pl.id)}
+function buyPlan(id){
+  selPlan=PLANS.find(p=>p.id===id);
+  document.getElementById('pay-amt').textContent='$'+selPlan.p+'.00';
+  document.getElementById('ototal').textContent='$'+selPlan.p+'.00';
+  document.getElementById('oi').innerHTML=`<div class="o-item"><span>${selPlan.f} ${selPlan.c}</span></div><div class="o-item"><span>${selPlan.d} · ${selPlan.t}g · ${selPlan.s}</span><span>$${selPlan.p}.00</span></div><div class="o-item"><span>Aktivasyon</span><span style="color:var(--a);font-weight:700">Ücretsiz</span></div><div class="o-item"><span>Provider</span><span>${selPlan.pv}</span></div>`;
+  document.getElementById('coupon-inp').value='';
+  goTo('checkout');
+}
+function sPM(btn,v){
+  document.querySelectorAll('.pm-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.getElementById('card-fields').style.display=v==='card'?'block':'none';
+  if(v!=='card')toast(v==='apple'?'Apple Pay → Stripe.js entegrasyonu sonrası aktif':v==='google'?'Google Pay → Stripe.js ile aktive edilecek':'API entegrasyonu sonrası aktif');
+}
+function fmtCard(el){let v=el.value.replace(/\D/g,'').substring(0,16);el.value=v.replace(/(.{4})/g,'$1 ').trim()}
+function fmtExp(el){let v=el.value.replace(/\D/g,'');if(v.length>=2)v=v.substring(0,2)+'/'+v.substring(2,4);el.value=v}
+function applyCoupon(){
+  const code=document.getElementById('coupon-inp').value.toUpperCase().trim();
+  const c=COUPONS[code];
+  if(!c){toast('❌ Geçersiz kupon kodu');return;}
+  const newP=selPlan.p*(1-c.discount/100);
+  document.getElementById('pay-amt').textContent='$'+newP.toFixed(2);
+  document.getElementById('ototal').textContent='$'+newP.toFixed(2);
+  toast('✓ Kupon uygulandı! %'+c.discount+' indirim');
+}
+function completeOrder(){
+  if(!selPlan)return;
+  document.getElementById('suc-plan').textContent=selPlan.f+' '+selPlan.c+' — '+selPlan.d+' / '+selPlan.t+' Gün';
+  document.getElementById('suc-lpa').textContent='LPA:1$smdp.esimaccess.com$PRIME-'+selPlan.iccid.slice(-8);
+  extraE.unshift({f:selPlan.f,c:selPlan.c,iccid:selPlan.iccid,d:selPlan.d,used:0,t:selPlan.t,left:selPlan.t,st:'active',pv:selPlan.pv});
+  extraTx.unshift({type:'buy',name:selPlan.f+' '+selPlan.c+' '+selPlan.d,date:'Az önce',amt:'-$'+selPlan.p+'.00'});
+  renderMyESIMs();renderTxs();goTo('success');
+  toast('✓ Ödeme başarılı!');
+}
+function renderMyESIMs(){
+  const all=[...extraE,...myESIMs];
+  document.getElementById('esim-count').textContent=all.filter(e=>e.st!=='expired').length+' aktif profil';
+  document.getElementById('esim-list').innerHTML=all.map(e=>{
+    const tot=parseFloat(e.d)||10,pct=Math.max(0,Math.min(100,Math.round((1-e.used/tot)*100)));
+    const col=e.st==='active'?'var(--a)':e.st==='low'?'var(--w)':'var(--border)';
+    const bc=e.st==='active'?'st-a':e.st==='low'?'st-l':'st-e',bl=e.st==='active'?'Aktif':e.st==='low'?'Düşük Veri':'Süresi Doldu';
+    return`<div class="esim-card"><div class="e-flag">${e.f}</div><div><div style="display:flex;align-items:center;gap:8px;margin-bottom:3px"><div class="e-name">${e.c}</div><span class="st-pill ${bc}">${bl}</span></div><div class="e-iccid">ICCID: ${e.iccid}</div><div class="e-prog"><div class="e-fill" style="width:${pct}%;background:${col}"></div></div><div class="e-meta"><div class="e-mi"><strong>${e.d}</strong>Toplam</div><div class="e-mi"><strong>${e.used.toFixed(1)}GB</strong>Kullanılan</div><div class="e-mi"><strong>${e.left}g</strong>Kalan</div><div class="e-mi"><strong>${e.pv}</strong>Provider</div></div></div><div class="e-acts"><button class="btn btn-ghost btn-xs" onclick="toast('QR kodu gösteriliyor...')">QR Göster</button>${e.st!=='expired'?'<button class="btn btn-outline-a btn-xs">Top-Up</button>':'<button class="btn btn-ghost btn-xs" onclick="goTo(\'plans\')">Yenile</button>'}</div></div>`;
+  }).join('');
+}
+function renderTxs(){
+  document.getElementById('txlist').innerHTML=[...extraTx,...txs].map(t=>`<div class="tx-item"><div class="tx-ico ${t.type}">${t.type==='buy'?'📶':'💰'}</div><div class="tx-info"><div class="tx-name">${t.name}</div><div class="tx-date">${t.date}</div></div><div class="tx-amt ${t.amt.startsWith('+')?'tx-pos':'tx-neg'}">${t.amt}</div></div>`).join('');
+}
+
+// ─── CAMPAIGNS RENDER ───
+function renderCampaigns(){
+  const camps=[
+    {type:'summer',title:'Yaz Fırsatları 2025',desc:'Asya destinasyonlarında %30 indirim. Japonya, Tayland, Güney Kore ve daha fazlası.',code:'SUMMER30',discount:'%30',progress:67,limit:500,end:'31 Ağu 2025'},
+    {type:'business',title:'B2B Kurumsal Deal',desc:'Kurumsal müşterilere özel %25 indirim ve öncelikli destek paketi.',code:'BUSINESS25',discount:'%25',progress:34,limit:200,end:'30 Haz 2025'},
+    {type:'flash',title:'Flash Sale — 24 Saat!',desc:'Avrupa planlarında 24 saatlik süper fırsat. Sınırlı stok!',code:'FLASH40',discount:'%40',progress:89,limit:100,end:'Bugün'},
+    {type:'summer',title:'Hoş Geldin Paketi',desc:'Yeni üyeler için ilk eSIM alımında %15 indirim.',code:'WELCOME15',discount:'%15',progress:45,limit:1000,end:'Süresiz'},
+  ];
+  document.getElementById('camp-grid').innerHTML=camps.map(c=>`
+    <div class="camp-card ${c.type}">
+      <div class="camp-end">⏰ ${c.end}</div>
+      <div class="discount-badge" style="float:right;margin-bottom:8px">${c.discount}</div>
+      <div class="camp-title">${c.title}</div>
+      <div class="camp-desc">${c.desc}</div>
+      <div class="coupon-box"><span class="coupon-code">${c.code}</span><button class="btn btn-xs btn-ghost" onclick="copyCoupon('${c.code}')">Kopyala</button></div>
+      <div class="progress-wrap"><div class="prog-lbl"><span>Kullanılan: ${Math.round(c.limit*c.progress/100)}</span><span>Limit: ${c.limit}</span></div><div class="prog-bar"><div class="prog-fill" style="width:${c.progress}%"></div></div></div>
+      <button class="btn btn-a" style="width:100%;justify-content:center;border-radius:10px" onclick="applyAndGo('${c.code}')">Fırsatı Kullan</button>
+    </div>`).join('');
+}
+function copyCoupon(code){toast('✓ Kupon kopyalandı: '+code)}
+function applyAndGo(code){document.getElementById('coupon-inp').value=code;goTo('plans');toast('✓ Kupon uygulandı: '+code+' — Bir plan seçin!')}
+
+// ─── BLOG RENDER ───
+function renderBlog(){
+  const posts=[
+    {cat:'Seyahat Rehberi',t:'Japonya\'da eSIM Kullanımı: Tam Rehber',d:'Tokyo\'dan Kyoto\'ya, Japonya\'da en iyi eSIM planları ve kurulum ipuçları.',ico:'🇯🇵',date:'12 Mar 2025',read:'5dk'},
+    {cat:'eSIM İpuçları',t:'eSIM Nedir? Başlangıç Rehberi',d:'eSIM teknolojisi, cihaz uyumluluğu ve kurulum adımları hakkında bilmeniz gereken her şey.',ico:'📱',date:'8 Mar 2025',read:'7dk'},
+    {cat:'Haberler',t:'PrimeSIM Mobile v2.0: Yeni Özellikler',d:'AI chatbot, 20 dil desteği, kampanya sistemi ve çok daha fazlası.',ico:'🚀',date:'5 Mar 2025',read:'3dk'},
+    {cat:'Seyahat Rehberi',t:'Avrupa\'da Seyahat İçin En İyi eSIM',d:'Schengen bölgesinde tek bir eSIM ile 26 ülkede bağlı kalın.',ico:'🇪🇺',date:'1 Mar 2025',read:'6dk'},
+    {cat:'Kurumsal',t:'İş Seyahatleri İçin B2B eSIM Çözümleri',d:'Çalışanlarınız için dünya genelinde uygun maliyetli bağlantı çözümleri.',ico:'🏢',date:'25 Şub 2025',read:'8dk'},
+    {cat:'Rehber',t:'eSIM iOS 17.4+ Push Kurulum',d:'iPhone\'unuzda bir dokunuşla eSIM kurulumu nasıl yapılır?',ico:'🍎',date:'20 Şub 2025',read:'4dk'},
+  ];
+  document.getElementById('blog-grid').innerHTML=posts.map(p=>`<div class="blog-card" onclick="toast('Blog yazısı açılıyor...')"><div class="blog-img" style="background:linear-gradient(135deg,var(--sky),var(--mint))">${p.ico}</div><div class="blog-body"><div class="blog-cat">${p.cat}</div><div class="blog-t">${p.t}</div><div class="blog-d">${p.d}</div><div class="blog-meta"><span>📅 ${p.date}</span><span>⏱ ${p.read}</span></div></div></div>`).join('');
+}
+
+// ─── NAVIGATION ───
+function goTo(s){
+  document.querySelectorAll('#mode-c .screen').forEach(x=>x.classList.remove('on'));
+  const sc=document.getElementById('sc-'+s);if(sc)sc.classList.add('on');
+  document.querySelectorAll('.bn').forEach(b=>b.classList.remove('on'));
+  const bn=document.getElementById('bn-'+s);if(bn)bn.classList.add('on');
+  document.querySelectorAll('.nav-link').forEach(a=>a.classList.toggle('on',a.getAttribute('data-page')===s));
+  window.scrollTo(0,0);
+}
+function switchMode(m){
+  document.getElementById('mode-c').style.display=m==='c'?'block':'none';
+  document.getElementById('mode-a').style.display=m==='a'?'block':'none';
+  document.getElementById('tab-c').classList.toggle('on',m==='c');
+  document.getElementById('tab-a').classList.toggle('on',m==='a');
+  document.querySelector('.bot-nav').style.display=m==='c'?'flex':'none';
+  document.getElementById('chat-bubble').style.display=m==='c'?'flex':'none';
+}
+function aGo(s){
+  document.querySelectorAll('.a-screen').forEach(x=>x.classList.remove('on'));
+  const el=document.getElementById('a-'+s);if(el)el.classList.add('on');
+  document.querySelectorAll('.sb-item').forEach(b=>b.classList.remove('on'));
+  const si=document.getElementById('si-'+s);if(si)si.classList.add('on');
+}
+
+// ─── AI CHATBOT ───
+let chatOpen=false;
+const botReplies={
+  'esim':'eSIM (Gömülü SIM), cihazınıza yerleşik dijital bir SIM kartı. QR kod veya push kurulum ile dakikalar içinde aktive edilebilir.',
+  'kur':'iOS 17.4+\'te tek dokunuşla kurulum destekliyoruz. Satın alım sonrası QR kodunu tarayın veya "Otomatik Kur" butonuna basın.',
+  'fiyat':'Planlarımız $8\'dan başlıyor. Ülke, data miktarı ve süreye göre değişir. Planlar sayfasından tüm fiyatları görüntüleyebilirsiniz.',
+  'ülke':'130+ ülkede hizmet veriyoruz. Asya, Avrupa, MENA, Amerika ve Global planlarımız mevcut.',
+  'iade':'30 gün içinde kullanılmamış eSIM için tam iade garantisi sunuyoruz. support@primesimobile.com adresinden ulaşabilirsiniz.',
+  'default':'Merhaba! Size nasıl yardımcı olabilirim? eSIM kurulumu, fiyatlar veya desteklenen ülkeler hakkında soru sorabilirsiniz.'
+};
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chat-win').classList.toggle('open',chatOpen);
+  if(chatOpen&&!document.getElementById('chat-msgs').children.length){
+    addBotMsg('Merhaba! 👋 PrimeSIM Mobile AI Asistan\'a hoş geldiniz. 20 dilde destek sunuyoruz. Size nasıl yardımcı olabilirim?');
+  }
+}
+function addBotMsg(txt){
+  const d=document.createElement('div');d.className='chat-msg bot';d.textContent=txt;
+  document.getElementById('chat-msgs').appendChild(d);
+  document.getElementById('chat-msgs').scrollTop=9999;
+}
+function addUserMsg(txt){
+  const d=document.createElement('div');d.className='chat-msg user';d.textContent=txt;
+  document.getElementById('chat-msgs').appendChild(d);
+  document.getElementById('chat-msgs').scrollTop=9999;
+}
+function sendChat(){
+  const inp=document.getElementById('chat-input');
+  const msg=inp.value.trim();if(!msg)return;
+  inp.value='';addUserMsg(msg);
+  const lower=msg.toLowerCase();
+  let reply=botReplies.default;
+  if(lower.includes('esim')||lower.includes('ne'))reply=botReplies.esim;
+  else if(lower.includes('kur')||lower.includes('install'))reply=botReplies.kur;
+  else if(lower.includes('fiyat')||lower.includes('ücret')||lower.includes('price'))reply=botReplies.fiyat;
+  else if(lower.includes('ülke')||lower.includes('country')||lower.includes('nere'))reply=botReplies.ülke;
+  else if(lower.includes('iade')||lower.includes('refund'))reply=botReplies.iade;
+  setTimeout(()=>addBotMsg(reply),600);
+}
+function sendSug(el){
+  document.getElementById('chat-input').value=el.textContent;sendChat();
+}
+
+// ─── EXPORT REPORT ───
+function exportReport(fmt,type){
+  toast(`📥 ${fmt.toUpperCase()} raporu hazırlanıyor: ${type}... (API entegrasyonu sonrası aktif)`);
+}
+
+// ─── BARS HELPER ───
+function bars(data,labels,cls,bid,lid){
+  const max=Math.max(...data);
+  document.getElementById(bid).innerHTML=data.map(v=>`<div class="bar ${cls}" style="height:${Math.round(v/max*76)}px" title="${v}"></div>`).join('');
+  document.getElementById(lid).innerHTML=labels.map(l=>`<div class="ch-lbl">${l}</div>`).join('');
+}
+
+// ─── ADMIN INIT ───
+function initAdmin(){
+  const orders=[
+    {no:'PS-20241',u:'Ahmet Y.',pl:'🇯🇵 Japonya 5GB',amt:'$12',pv:'eSIM Access',st:'active',d:'Az önce',coup:'-'},
+    {no:'PS-20240',u:'Sara K.',pl:'🇩🇪 Almanya 10GB',amt:'$18',pv:'Telnyx',st:'active',d:'5dk',coup:'PRIME20'},
+    {no:'PS-20239',u:'Mehmet D.',pl:'🌍 Global',amt:'$45',pv:'eSIM Access',st:'active',d:'12dk',coup:'-'},
+    {no:'PS-20238',u:'Ayşe T.',pl:'🇺🇸 ABD 3GB',amt:'$9',pv:'eSIM Access',st:'pending',d:'18dk',coup:'-'},
+    {no:'PS-20237',u:'Can B.',pl:'🇫🇷 Fransa 5GB',amt:'$11',pv:'Telnyx',st:'refund',d:'1s',coup:'SUMMER30'},
+  ];
+  const tSt={'active':'tag-g','pending':'tag-o','refund':'tag-r'};
+  const tLbl={'active':'Aktif','pending':'Bekliyor','refund':'İade'};
+  document.getElementById('dash-orders').innerHTML=orders.map(o=>`<tr><td class="td-b">${o.no}</td><td>${o.u}</td><td>${o.pl}</td><td class="td-b">${o.amt}</td><td>${o.pv}</td><td><span class="tag ${tSt[o.st]}">${tLbl[o.st]}</span></td><td>${o.d}</td></tr>`).join('');
+  document.getElementById('all-orders').innerHTML=orders.map(o=>`<tr><td class="td-b">${o.no}</td><td>${o.u}</td><td>${o.pl}</td><td class="td-b">${o.amt}</td><td>${o.pv}</td><td style="font-family:monospace;font-size:10px">8901...${Math.floor(Math.random()*9999).toString().padStart(4,'0')}</td><td>${o.coup!=='-'?`<span class="tag tag-p">${o.coup}</span>`:'-'}</td><td><span class="tag ${tSt[o.st]}">${tLbl[o.st]}</span></td><td>${o.d}</td><td><button class="btn btn-ghost btn-xs">Detay</button></td></tr>`).join('');
+  document.getElementById('users-tbl').innerHTML=[
+    {u:'Ahmet Yılmaz',e:'ahmet@email.com',c:'🇹🇷 TR',o:8,s:'$124',seg:'VIP',r:'Oca 2026',st:'active'},
+    {u:'Sara Kaya',e:'sara@email.com',c:'🇩🇪 DE',o:3,s:'$67',seg:'Regular',r:'Şub 2026',st:'active'},
+    {u:'Mehmet D.',e:'mehmet@email.com',c:'🇺🇸 US',o:12,s:'$289',seg:'VIP',r:'Kas 2025',st:'active'},
+    {u:'Ayşe T.',e:'ayse@email.com',c:'🇬🇧 GB',o:1,s:'$9',seg:'New',r:'Mar 2026',st:'new'},
+  ].map(u=>`<tr><td class="td-b">${u.u}</td><td style="color:var(--muted)">${u.e}</td><td>${u.c}</td><td class="td-b">${u.o}</td><td class="td-b" style="color:#00a878">${u.s}</td><td><span class="tag ${u.seg==='VIP'?'tag-p':u.seg==='New'?'tag-b':'tag-g'}">${u.seg}</span></td><td>${u.r}</td><td><span class="tag ${u.st==='new'?'tag-b':'tag-g'}">${u.st==='new'?'Yeni':'Aktif'}</span></td><td><button class="btn btn-ghost btn-xs">Detay</button></td></tr>`).join('');
+  document.getElementById('catalog-tbl').innerHTML=PLANS.map(p=>`<tr><td>${p.f} ${p.c}</td><td class="td-b">${p.d}</td><td>${p.t}g</td><td>${p.s}</td><td style="color:var(--muted)">$${(p.p*0.58).toFixed(2)}</td><td class="td-b">$${p.p}.00</td><td style="color:#00a878;font-weight:700">%42</td><td><span class="tag tag-b">${p.pv}</span></td><td><span class="tag tag-g">In Stock</span></td><td><span class="tag tag-g">Aktif</span></td><td><button class="btn btn-ghost btn-xs">Düzenle</button></td></tr>`).join('');
+  document.getElementById('pv-grid').innerHTML=[
+    {name:'eSIM Access',ico:'🔌',c:'var(--a)',cnt:'100+',lat:'142ms',up:'99.98%',ord:'2,847'},
+    {name:'Telnyx',ico:'📡',c:'#0066FF',cnt:'180+',lat:'98ms',up:'99.95%',ord:'1,024'},
+    {name:'TelecomsXChange',ico:'🌐',c:'var(--w)',cnt:'150+',lat:'211ms',up:'99.87%',ord:'1,280'},
+  ].map(pv=>`<div class="pv-card"><div class="pv-hdr"><div class="pv-ico" style="background:${pv.c}22">${pv.ico}</div><div><div class="pv-name">${pv.name}</div><div class="pv-st">Sağlıklı</div></div></div><div class="mini-mtr"><div class="mini-m"><div class="lbl">Ülkeler</div><div class="val">${pv.cnt}</div></div><div class="mini-m"><div class="lbl">Gecikme</div><div class="val">${pv.lat}</div></div><div class="mini-m"><div class="lbl">Uptime</div><div class="val" style="color:#00a878">${pv.up}</div></div><div class="mini-m"><div class="lbl">Bu Ay</div><div class="val">${pv.ord}</div></div></div><button class="btn btn-ghost btn-sm" style="width:100%" onclick="toast('${pv.name} API test ediliyor...')">API Test Et</button></div>`).join('');
+  document.getElementById('suppliers-tbl').innerHTML=[
+    {n:'RedteaGO Alliance',t:'Wholesale',c:'Global',wp:'$2.50/GB',ciro:'$12,400',exp:'Dec 2026',st:'active'},
+    {n:'iBASIS Telecom',t:'Roaming',c:'Avrupa',wp:'$3.20/GB',ciro:'$8,200',exp:'Jun 2026',st:'active'},
+    {n:'BICS',t:'MVNA',c:'MENA',wp:'$4.00/GB',ciro:'$5,100',exp:'Mar 2027',st:'active'},
+  ].map(s=>`<tr><td class="td-b">${s.n}</td><td>${s.t}</td><td>${s.c}</td><td>${s.wp}</td><td style="color:#00a878;font-weight:700">${s.ciro}</td><td>${s.exp}</td><td><span class="tag tag-g">Aktif</span></td><td><button class="btn btn-ghost btn-xs">Düzenle</button></td></tr>`).join('');
+  document.getElementById('resellers-tbl').innerHTML=[
+    {n:'TechTravel GmbH',t:'White-Label',c:'🇩🇪 DE',s:'$8,400',k:'%18',api:'re_abc123',wl:'Evet',st:'active'},
+    {n:'SimWorld UAE',t:'API Partner',c:'🇦🇪 AE',s:'$6,200',k:'%15',api:'re_def456',wl:'Hayır',st:'active'},
+    {n:'TravelSIM TR',t:'Distributor',c:'🇹🇷 TR',s:'$4,800',k:'%20',api:'re_ghi789',wl:'Evet',st:'active'},
+  ].map(r=>`<tr><td class="td-b">${r.n}</td><td>${r.t}</td><td>${r.c}</td><td style="color:#00a878;font-weight:700">${r.s}</td><td>${r.k}</td><td style="font-family:monospace;font-size:10px">${r.api}</td><td><span class="tag ${r.wl==='Evet'?'tag-g':'tag-o'}">${r.wl}</span></td><td><span class="tag tag-g">Aktif</span></td><td><button class="btn btn-ghost btn-xs">Düzenle</button></td></tr>`).join('');
+  document.getElementById('campaigns-tbl').innerHTML=[
+    {n:'Yaz Fırsatları 2025',t:'%30 İndirim',d:'%30',u:334,lim:500,s:'1 Haz',e:'31 Ağu',r:'$12,400',st:'active'},
+    {n:'B2B Deal',t:'%25 Kurumsal',d:'%25',u:68,lim:200,s:'15 Mar',e:'30 Haz',r:'$8,200',st:'active'},
+    {n:'Flash Sale 24h',t:'%40 Flaş',d:'%40',u:89,lim:100,s:'Bugün',e:'Bugün',r:'$3,560',st:'active'},
+    {n:'Welcome Pack',t:'%15 Yeni Üye',d:'%15',u:450,lim:1000,s:'Süresiz',e:'Süresiz',r:'$6,750',st:'active'},
+    {n:'Ramazan Özel',t:'%20 İndirim',d:'%20',u:0,lim:300,s:'29 Mar',e:'28 Nis',r:'-',st:'planned'},
+  ].map(c=>`<tr><td class="td-b">${c.n}</td><td>${c.t}</td><td class="td-b" style="color:#00a878">${c.d}</td><td>${c.u}</td><td>${c.lim}</td><td>${c.s}</td><td>${c.e}</td><td class="td-b" style="color:#00a878">${c.r}</td><td><span class="tag ${c.st==='active'?'tag-g':'tag-b'}">${c.st==='active'?'Aktif':'Planlandı'}</span></td><td><button class="btn btn-ghost btn-xs">Düzenle</button></td></tr>`).join('');
+  document.getElementById('coupons-tbl').innerHTML=[
+    {c:'PRIME20',d:'%20',t:'Yüzde',u:342,lim:1000,camp:'Genel',exp:'Dec 2025',st:'active'},
+    {c:'WELCOME10',d:'%10',t:'Yeni Üye',u:156,lim:500,camp:'Welcome',exp:'Süresiz',st:'active'},
+    {c:'SUMMER30',d:'%30',t:'Sezon',u:334,lim:500,camp:'Yaz 2025',exp:'31 Ağu',st:'active'},
+    {c:'BUSINESS25',d:'%25',t:'B2B',u:68,lim:200,camp:'B2B Deal',exp:'30 Haz',st:'active'},
+    {c:'FLASH40',d:'%40',t:'Flash',u:89,lim:100,camp:'Flash Sale',exp:'Bugün',st:'active'},
+    {c:'EXPIRED10',d:'%10',t:'Yüzde',u:200,lim:200,camp:'Eski',exp:'Jan 2025',st:'expired'},
+  ].map(c=>`<tr><td><span class="coupon-code-display" style="font-size:13px;padding:4px 10px">${c.c}</span></td><td class="td-b" style="color:#00a878">${c.d}</td><td>${c.t}</td><td>${c.u}</td><td>${c.lim}</td><td>${c.camp}</td><td>${c.exp}</td><td><span class="tag ${c.st==='active'?'tag-g':'tag-r'}">${c.st==='active'?'Aktif':'Süresi Doldu'}</span></td><td><button class="btn btn-ghost btn-xs">Düzenle</button></td></tr>`).join('');
+  document.getElementById('support-tbl').innerHTML=[
+    {n:'#5201',u:'Ahmet Y.',k:'eSIM kurulum hatası',p:'high',ch:'Chat',st:'open',d:'14 Mar'},
+    {n:'#5200',u:'Sara K.',k:'Ödeme iade talebi',p:'normal',ch:'E-posta',st:'open',d:'13 Mar'},
+    {n:'#5199',u:'Mehmet D.',k:'Top-up çalışmıyor',p:'high',ch:'WhatsApp',st:'open',d:'13 Mar'},
+    {n:'#5198',u:'Ayşe T.',k:'QR okutmuyor',p:'normal',ch:'Chat',st:'solved',d:'12 Mar'},
+    {n:'#5197',u:'Can B.',k:'Şifre sıfırlama',p:'low',ch:'E-posta',st:'solved',d:'11 Mar'},
+  ].map(t=>`<tr><td class="td-b">${t.n}</td><td>${t.u}</td><td>${t.k}</td><td><span class="tag ${t.p==='high'?'tag-r':t.p==='low'?'tag-g':'tag-o'}">${t.p==='high'?'Kritik':t.p==='low'?'Düşük':'Normal'}</span></td><td><span class="tag tag-b">${t.ch}</span></td><td><span class="tag ${t.st==='open'?'tag-o':'tag-g'}">${t.st==='open'?'Açık':'Çözüldü'}</span></td><td>${t.d}</td><td><button class="btn btn-ghost btn-xs">Görüntüle</button></td></tr>`).join('');
+  document.getElementById('payouts-tbl').innerHTML=[
+    {id:'pi_3P8abc',t:'Satış',a:'$12.00',u:'Ahmet Y.',m:'Kart',st:'succeeded',d:'14 Mar'},
+    {id:'pi_3P7def',t:'Satış',a:'$45.00',u:'Mehmet D.',m:'Apple Pay',st:'succeeded',d:'14 Mar'},
+    {id:'pi_3P6ghi',t:'İade',a:'-$9.00',u:'Can B.',m:'Kart',st:'refunded',d:'13 Mar'},
+    {id:'pi_3P5jkl',t:'Satış',a:'$18.00',u:'Sara K.',m:'Google Pay',st:'succeeded',d:'12 Mar'},
+  ].map(p=>`<tr><td style="font-family:monospace;font-size:10px">${p.id}</td><td>${p.t}</td><td class="td-b" style="color:${p.a.startsWith('-')?'#e53535':'#00a878'}">${p.a}</td><td>${p.u}</td><td>${p.m}</td><td><span class="tag ${p.st==='succeeded'?'tag-g':'tag-r'}">${p.st==='succeeded'?'Başarılı':'İade'}</span></td><td>${p.d}</td></tr>`).join('');
+  document.getElementById('notifs-list').innerHTML=[
+    {type:'ok',ico:'✅',t:'eSIM Access API sağlıklı — 100+ ülke aktif',d:'1dk önce'},
+    {type:'warn',ico:'⚠️',t:'Telnyx kredi uyarısı — $50 altında',d:'3sa önce'},
+    {type:'info',ico:'📦',t:'47 yeni sipariş son 1 saatte işlendi',d:'10dk önce'},
+    {type:'info',ico:'🎉',t:'Günlük gelir hedefi %118 aşıldı',d:'2sa önce'},
+  ].map(n=>`<div class="notif ${n.type==='warn'?'warn':'info'}"><span class="notif-ico">${n.ico}</span><div><div class="notif-t">${n.t}</div><div class="notif-d">${n.d}</div></div></div>`).join('');
+  bars([340,520,480,690,820,950,1100],['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'],'bar-a','rev-bars','rev-lbls');
+  bars([420,380,210,180,110,90],['Asya','Avrupa','MENA','Ame.','Global','Diğ.'],'bar-p','region-bars','region-lbls');
+  bars([42,58,67,75,79,84],['Eki','Kas','Ara','Oca','Şub','Mar'],'bar-a','monthly-bars','monthly-lbls');
+  bars([820,1240,980,1440,1680,1920,2100],['Pzt','Sal','Çar','Per','Cum','Cmt','Paz'],'bar-p','dau-bars','dau-lbls');
+  bars([420,380,310,280,210,190],['🇯🇵','🇩🇪','🇺🇸','🇹🇷','🌍','🇫🇷'],'bar-w','cntry-bars','cntry-lbls');
+  bars([120,180,240,310,342,398],['Eki','Kas','Ara','Oca','Şub','Mar'],'bar-a','coup-bars','coup-lbls');
+  bars([8400,6200,4800,3200,2100,1800],['TechT','SimW','TravS','EuroS','AsiaSIM','Other'],'bar-g','rsl-bars','rsl-lbls');
+}
+
+function toast(msg){
+  const d=document.createElement('div');d.className='toast';d.textContent=msg;
+  document.body.appendChild(d);setTimeout(()=>d.remove(),3500);
+}
+
+function init(){
+  document.getElementById('clist').innerHTML=POPS.map(c=>`<span class="c-pill" onclick="srchC('${c}')">${c}</span>`).join('');
+  renderFeat();renderPlans(PLANS);renderMyESIMs();renderTxs();
+  renderCampaigns();renderBlog();
+  initAdmin();
+}
+init();
+</script>
+</body>
+</html>
