@@ -1,0 +1,3 @@
+# Cloudflare Pages / Netlify Redirects
+/admin/*   https://admin.primesimobile.com/:splat  302
+/api/*     https://api.primesimobile.com/:splat     302

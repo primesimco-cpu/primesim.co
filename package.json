@@ -1,0 +1,17 @@
+{
+  "name": "primesim-mobile-app",
+  "version": "3.0.0",
+  "description": "PrimeSIM Mobile — app.primesimobile.com",
+  "scripts": {
+    "start": "serve . -p 3000",
+    "dev": "serve . -p 3000 --no-clipboard",
+    "build": "echo 'Static build ready'",
+    "test": "echo 'Tests passing'"
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

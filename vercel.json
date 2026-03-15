@@ -1,9 +1,33 @@
 {
   "version": 2,
+  "name": "primesim-app",
   "builds": [
-    { "src": "index.html", "use": "@vercel/static" }
+    { "src": "package.json", "use": "@vercel/next" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
-  ]
+    { "src": "/(.*)", "dest": "/$1" }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "https://primesimobile.com" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,PUT,DELETE,OPTIONS" },
+        { "key": "Access-Control-Allow-Headers", "value": "Content-Type,Authorization" }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "primesimobile.com" }],
+      "destination": "https://app.primesimobile.com",
+      "permanent": false
+    }
+  ],
+  "env": {
+    "NEXT_PUBLIC_APP_URL": "https://app.primesimobile.com",
+    "NEXT_PUBLIC_API_URL": "https://api.primesimobile.com",
+    "NEXT_PUBLIC_DOMAIN": "primesimobile.com"
+  }
 }
